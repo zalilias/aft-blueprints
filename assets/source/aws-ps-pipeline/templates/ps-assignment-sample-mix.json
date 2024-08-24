@@ -1,0 +1,25 @@
+{
+  "Name": "ps-assignment-mix",
+  "Comment": "Sample mix assignment",
+  "Description": "Sample mix assignment",
+  "SessionDuration": "PT4H",
+  "ManagedPolicies": ["arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"],
+  "CustomerPolicies": [],
+  "CustomPolicy": {},
+  "PermissionBoundary": {
+    "ManagedPolicy": "",
+    "CustomerPolicy": ""
+  },
+  "Assignments": [
+    {
+      "all_accounts": false,
+      "principal": "AWSControlTowerAdmins",
+      "type": "GROUP",
+      "account_id": ["061788395119"],
+      "account_ou": ["ou-u5c1-owedgjmc"],
+      "account_tag": {
+        "environment": "production"
+      }
+    }
+  ]
+}

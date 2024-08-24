@@ -1,0 +1,25 @@
+{
+  "Name": "ps-assignment-ou",
+  "Comment": "Sample OU assignment",
+  "Description": "Sample OU assignment",
+  "SessionDuration": "PT4H",
+  "ManagedPolicies": ["arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"],
+  "CustomerPolicies": [],
+  "CustomPolicy": {},
+  "PermissionBoundary": {
+    "ManagedPolicy": "",
+    "CustomerPolicy": ""
+  },
+  "Assignments": [
+    {
+      "principal": "AWSControlTowerAdmins",
+      "type": "GROUP",
+      "account_ou": ["ou-u5c1-21e4hjq5","ou-u5c1-3af0bu2e"]
+    },
+    {
+      "principal": "AWSControlTowerAdmins",
+      "type": "GROUP",
+      "account_ou": ["ou-u5c1-owedgjmc"]
+    }
+  ]
+}

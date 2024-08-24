@@ -1,0 +1,17 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "codecommit:GitPull",
+        "codecommit:Get*",
+        "codecommit:List*",
+        "codecommit:Describe*",
+        "codecommit:BatchGet*",
+        "codecommit:UploadArchive"
+      ],
+      "Resource": "${codecommit_arn}"
+    }
+  ]
+}

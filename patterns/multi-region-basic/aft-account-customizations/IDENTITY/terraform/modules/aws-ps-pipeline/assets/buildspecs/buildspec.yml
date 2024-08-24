@@ -1,0 +1,55 @@
+version: 0.2
+
+env:
+  variables:
+    TERRAFORM_VERSION: 1.5.0
+
+phases:
+  pre_build:
+    commands:
+      - |
+        set -e
+        DEFAULT_PATH=$(pwd)
+        REGION=$(aws ec2 describe-availability-zones --query 'AvailabilityZones[0].[RegionName]' --output text)
+
+      - |
+        echo "Preparing venv..."
+        python3 -m venv $DEFAULT_PATH/venv
+        $DEFAULT_PATH/venv/bin/pip install pip==22.1.2
+        $DEFAULT_PATH/venv/bin/pip install jinja2-cli==0.7.0 Jinja2==3.0.1 MarkupSafe==2.0.1 boto3==1.18.56 requests==2.26.0
+        source $DEFAULT_PATH/venv/bin/activate
+        
+      - |
+        echo "Terraform installation..."
+        cd /tmp
+        wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+        mkdir -p /opt/bin
+        unzip -q -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip 
+        mv terraform /opt/bin
+        /opt/bin/terraform -no-color --version
+        cd $DEFAULT_PATH/terraform
+      
+      - |
+        echo "Converting jinja files to terraform..."
+        for f in *.jinja; do jinja2 $f -D region=$REGION -D bucket=$TF_BUCKET -D kms_key_id=$KMS_KEY_ID >> ./$(basename $f .jinja).tf; done
+        for f in *.jinja; do echo "\n \n"; echo $(basename $f .jinja).tf; cat $(basename $f .jinja).tf; done
+      
+      - |
+        echo "Terraform init..."
+        /opt/bin/terraform init
+        /opt/bin/terraform fmt
+        /opt/bin/terraform validate
+  build:
+    commands:
+      - |
+        echo "Terraform plan..."
+        /opt/bin/terraform plan -out output.tfplan
+        SOURCE_ARTIFACT_NAME=$(echo $CODEBUILD_SOURCE_VERSION | cut -d "/" -f 3)
+      
+      - |
+        echo "Terraform apply..."
+        if [ $SOURCE_ARTIFACT_NAME == 'main' ]; then
+            /opt/bin/terraform apply "output.tfplan"
+        fi
+artifacts:
+  files: output.tfplan

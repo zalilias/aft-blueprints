@@ -1,0 +1,20 @@
+{
+  "Name": "ps-assignment-account-id",
+  "Comment": "Sample account id assignment",
+  "Description": "Sample account id assignment",
+  "SessionDuration": "PT4H",
+  "ManagedPolicies": ["arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"],
+  "CustomerPolicies": [],
+  "CustomPolicy": {},
+  "PermissionBoundary": {
+    "ManagedPolicy": "",
+    "CustomerPolicy": ""
+  },
+  "Assignments": [
+    {
+      "principal": "AWSControlTowerAdmins",
+      "type": "GROUP",
+      "account_id": ["449098615552"]
+    }
+  ]
+}
