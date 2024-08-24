@@ -1,9 +1,11 @@
-site_name: AFT Blueprints
-site_description: Account Factory for Terraform (AFT) Blueprints
-copyright: Made with ❤️ by AWS Community.
-repo_name: awslabs/aft-blueprints
-repo_url: https://github.com/awslabs/aft-blueprints
-docs_dir: "docs"
+site_name: "AFT Blueprints"
+site_description: "Account Factory for Terraform (AFT) Blueprint samples"
+copyright: "Copyright &copy; Amazon 2024"
+site_author: "AWS"
+site_url: "https://awslabs.github.io/aft-blueprints"
+repo_name: aft-blueprints
+repo_url: "https://github.com/awslabs/aft-blueprints"
+docs_dir: "docs/"
 
 theme:
   name: material
@@ -64,17 +66,12 @@ plugins:
   - glightbox
   - minify:
       minify_html: true
-  - social:
-      cards: true
-      cards_layout_options:
-        font_family: Roboto
 
 markdown_extensions:
-  - toc:
-      permalink: true
   - admonition
-  - codehilite:
-      linenums: true
+  - attr_list
+  - md_in_html
+  - footnotes
   - pymdownx.superfences
   - pymdownx.details
   - pymdownx.snippets
@@ -86,8 +83,9 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - attr_list
-  - md_in_html
-  - footnotes
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - codehilite:
+      linenums: true
+  - toc:
+      permalink: true
