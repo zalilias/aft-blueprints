@@ -8,7 +8,7 @@ on:
       - "docs/**"
       - mkdocs.yaml
       - README.md
-      - ".github/workflows/docbuild.yaml"
+      - ".github/workflows/docbuild.yml"
 
 permissions:
   contents: write
@@ -55,16 +55,12 @@ jobs:
             mkdocs-awesome-pages-plugin \
             pillow cairosvg
 
-      - name: Adjust permissions
-        run: |
-          chmod -c -R +rX site/ | while read line; do
-            echo "::warning title=Invalid file permissions automatically fixed::$line"
-          done
-
-      - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+      - uses: actions/cache@v4
         with:
-          path: site
+          key: mkdocs-material-${{ env.cache_id }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
 
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+      - run: mkdocs gh-deploy --force

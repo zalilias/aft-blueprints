@@ -21,14 +21,14 @@ theme:
         icon: material/weather-night
         name: Switch to dark mode
       primary: indigo
-      accent: amber
+      accent: indigo
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
       primary: indigo
-      accent: amber
+      accent: indigo
   icon:
     repo: fontawesome/brands/github
     admonition:
@@ -62,10 +62,13 @@ theme:
     - bash
 
 plugins:
-  - search
   - glightbox
+  - awesome-pages
   - minify:
       minify_html: true
+  - search:
+      lang:
+        - en
 
 markdown_extensions:
   - admonition
@@ -89,3 +92,9 @@ markdown_extensions:
       linenums: true
   - toc:
       permalink: true
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/@glidejs/glide
+
+nav:
+  - Overview: index.md
