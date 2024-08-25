@@ -4,7 +4,7 @@
 
 ## Security
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+See [CONTRIBUTING](https://github.com/awslabs/aft-blueprints/blob/main/CONTRIBUTING.md#security-issue-notifications){:target="\_blank"} for more information.
 
 ## License
 
