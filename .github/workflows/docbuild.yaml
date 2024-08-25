@@ -1,4 +1,5 @@
 name: "Release Docs"
+
 on:
   push:
     branches:
@@ -8,10 +9,19 @@ on:
       - mkdocs.yaml
       - README.md
       - ".github/workflows/docbuild.yaml"
+
 permissions:
   contents: write
+  id-token: write
+  pages: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 env:
   PYTHON_VERSION: 3.12
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -45,5 +55,16 @@ jobs:
             mkdocs-awesome-pages-plugin \
             pillow cairosvg
 
-      - name: Deploy
-        run: mkdocs gh-deploy --force
+      - name: Adjust permissions
+        run: |
+          chmod -c -R +rX site/ | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
