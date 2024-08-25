@@ -122,7 +122,7 @@ nav:
           - Single Region Basic: architectures/network-single-region-basic.md
           - Multi Region Basic: architectures/network-multi-region-basic.md
           - Multi Region Advanced: architectures/network-multi-region-advanced.md
-          - Workload account: architectures/workload-account.md
+      - Workload account: workload-account.md
   - Patterns:
       - Single Region Basic: patterns/network-single-region-basic.md
       - Multi Region Basic: patterns/network-multi-region-basic.md
