@@ -11,7 +11,7 @@ copyright: >
 
 theme:
   name: material
-  logo: static/aws-white-logo.png
+  logo: static/logo-white.png
   favicon: static/favicon.ico
   font:
     text: ember
@@ -66,6 +66,7 @@ theme:
 plugins:
   - glightbox
   - awesome-pages
+  - include-markdown
   - minify:
       minify_html: true
   - search:
@@ -115,9 +116,10 @@ nav:
   - Overview: index.md
   - Getting started: getting-started.md
   - Setup: setup.md
-  - Architecture:
+  - Architectures:
+      - Account Structure: architectures/account-structure.md
       - Identity Management: architectures/identity-management.md
-      - AWS Backup: architectures/aws-backup.md
+      - Backup: architectures/aws-backup.md
       - Network:
           - Basic: architectures/network-basic.md
           - Intermediate: architectures/network-intermediate.md

@@ -7,6 +7,7 @@ on:
     paths:
       - "docs/**"
       - mkdocs.yml
+      - README.md
       - ".github/workflows/docbuild.yml"
 
 permissions:
@@ -41,7 +42,8 @@ jobs:
             mkdocs-glightbox \
             mkdocs-minify-plugin \
             mkdocs-material-extensions \
-            mkdocs-awesome-pages-plugin
+            mkdocs-awesome-pages-plugin \
+            mkdocs-include-markdown-plugin
           echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
 
       - name: Cache config

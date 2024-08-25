@@ -1,5 +1,1 @@
-# Account Factory for Terraform (AFT) Blueprints
-
-## Overview
-
-...
+{% include-markdown "../README.md" %}
