@@ -7,7 +7,6 @@ on:
     paths:
       - "docs/**"
       - mkdocs.yml
-      - README.md
       - ".github/workflows/docbuild.yml"
 
 permissions:
