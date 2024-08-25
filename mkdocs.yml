@@ -116,14 +116,14 @@ nav:
   - Getting started: getting-started.md
   - Setup: setup.md
   - Architecture:
-      - Identity: architectures/identity.md
-      - Backup: architectures/backup.md
+      - Identity Management: architectures/identity-management.md
+      - AWS Backup: architectures/aws-backup.md
       - Network:
-          - Single Region Basic: architectures/network-single-region-basic.md
-          - Multi Region Basic: architectures/network-multi-region-basic.md
-          - Multi Region Advanced: architectures/network-multi-region-advanced.md
-      - Workload account: workload-account.md
+          - Basic: architectures/network-basic.md
+          - Intermediate: architectures/network-intermediate.md
+          - Advanced: architectures/network-advanced.md
+      - Workload account: architectures/workload-account.md
   - Patterns:
-      - Single Region Basic: patterns/network-single-region-basic.md
-      - Multi Region Basic: patterns/network-multi-region-basic.md
-      - Multi Region Advanced: patterns/network-multi-region-advanced.md
+      - Single Region Basic: patterns/single-region-basic.md
+      - Multi Region Basic: patterns/multi-region-basic.md
+      - Multi Region Advanced: patterns/multi-region-advanced.md
