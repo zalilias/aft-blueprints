@@ -1,0 +1,1 @@
+{% include-markdown "../../patterns/single-region-basic/README.md" %}
