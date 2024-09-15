@@ -1,0 +1,1 @@
+After copying the repository, you need to copy the [modules](https://github.com/awslabs/aft-blueprints/tree/main/modules) folder to here.

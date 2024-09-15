@@ -8,10 +8,10 @@ module "myapp" {
     app_name      = "myapp"
     account_email = "aws-myapp@email.com"
     account_tags = {
-      owner = "vinelias"
+      owner = "user"
     }
     change_management_parameters = {
-      change_requested_by = "vinelias"
+      change_requested_by = "user"
       change_reason       = "Testing the account combo"
     }
   }

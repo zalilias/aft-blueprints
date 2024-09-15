@@ -5,23 +5,23 @@ module "network" {
   source = "./modules/aft-account-request"
 
   control_tower_parameters = {
-    AccountEmail = "vinelias+cfa-network@amazon.com"
-    AccountName  = "CFA-Network"
+    AccountEmail = "my-org+network@customer.com"
+    AccountName  = "Network"
     # Syntax for top-level OU
     ManagedOrganizationalUnit = "Infrastructure"
     # Syntax for nested OU
-    # ManagedOrganizationalUnit = "Sandbox (ou-xfe5-a8hb8ml8)"
-    SSOUserEmail     = "vinelias+cfa@amazon.com"
+    # ManagedOrganizationalUnit = "Sandbox (ou-abcd-12345678)"
+    SSOUserEmail     = "my-org@customer.com"
     SSOUserFirstName = "AWS Control Tower"
     SSOUserLastName  = "Admin"
   }
 
   account_tags = {
-    owner = "vinelias"
+    owner = "user"
   }
 
   change_management_parameters = {
-    change_requested_by = "vinelias"
+    change_requested_by = "user"
     change_reason       = "Testing the account vending process"
   }
 

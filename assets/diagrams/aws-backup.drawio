@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-04-20T13:36:47.255Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="qWn4BU2-pghf7IEBIgMS" version="24.2.5" type="device">
+<mxfile host="Electron" modified="2024-09-02T18:04:35.479Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.2.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="9qvnN8QB1CBHeBuysPms" version="24.2.5" type="device">
   <diagram id="uTrvD8UDYwbEMfuhj46e" name="Page-1">
-    <mxGraphModel dx="1434" dy="1254" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2074" dy="1614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -233,10 +233,10 @@
         <mxCell id="rybmFJq2nmyfAco3rUm7-83" value="Vault Policy" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=14;fontStyle=0;pointerEvents=1;shape=mxgraph.aws4.policy;fontFamily=Helvetica;" parent="1" vertex="1">
           <mxGeometry x="320" y="932" width="78" height="67" as="geometry" />
         </mxCell>
-        <mxCell id="jvovS7ngpg3Jv1XjrWg3-1" value="Backup Vault" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=14;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.aws_backup_vault_lock;" parent="1" vertex="1">
+        <mxCell id="jvovS7ngpg3Jv1XjrWg3-1" value="Vault Lock" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=14;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.aws_backup_vault_lock;" parent="1" vertex="1">
           <mxGeometry x="570" y="933" width="78" height="78" as="geometry" />
         </mxCell>
-        <mxCell id="jvovS7ngpg3Jv1XjrWg3-2" value="Backup Vault" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=14;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.aws_backup_vault_lock;" parent="1" vertex="1">
+        <mxCell id="jvovS7ngpg3Jv1XjrWg3-2" value="Vault Lock" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#7AA116;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=14;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.aws_backup_vault_lock;" parent="1" vertex="1">
           <mxGeometry x="570" y="552" width="78" height="78" as="geometry" />
         </mxCell>
         <mxCell id="rybmFJq2nmyfAco3rUm7-139" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=#000000;strokeWidth=1;fontFamily=Helvetica;fontSize=14;fontColor=default;endArrow=classic;endFill=1;fillColor=#d5e8d4;elbow=vertical;align=center;verticalAlign=middle;startArrow=none;" parent="1" source="jvovS7ngpg3Jv1XjrWg3-8" target="rybmFJq2nmyfAco3rUm7-63" edge="1">
@@ -272,6 +272,23 @@
         </mxCell>
         <mxCell id="rybmFJq2nmyfAco3rUm7-24" value="AWS Organizations" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=#F54749;gradientDirection=north;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=14;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.organizations;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];labelBackgroundColor=default;" parent="1" vertex="1">
           <mxGeometry x="520" y="-150" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="_UrbxaBY_58vw2vAiujw-5" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;fontColor=#000000;endArrow=none;endFill=0;elbow=vertical;dashed=1;fillColor=#dae8fc;strokeColor=#000000;fontSize=14;startArrow=classic;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1015" y="587" as="sourcePoint" />
+            <mxPoint x="1015" y="847" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_UrbxaBY_58vw2vAiujw-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;fontColor=#000000;endArrow=classic;endFill=1;elbow=vertical;dashed=1;fillColor=#dae8fc;strokeColor=#000000;fontSize=14;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1001" y="590" as="sourcePoint" />
+            <mxPoint x="1001.4003986710964" y="852" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_UrbxaBY_58vw2vAiujw-4" value="copy data&lt;br style=&quot;font-size: 14px;&quot;&gt;(optional)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;fontSize=14;" vertex="1" connectable="0" parent="_UrbxaBY_58vw2vAiujw-3">
+          <mxGeometry x="0.1118" y="-1" relative="1" as="geometry">
+            <mxPoint x="8" y="-56" as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

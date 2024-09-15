@@ -48,7 +48,7 @@ theme:
       quote: octicons/quote-16
   features:
     - navigation.instant
-    - navigation.sections
+    # - navigation.sections
     - navigation.top
     - search.highlight
     - search.share
@@ -62,6 +62,7 @@ theme:
     - yaml
     - json
     - bash
+    - terraform
 
 plugins:
   - glightbox
@@ -115,7 +116,10 @@ extra_javascript:
 nav:
   - Overview: index.md
   - Getting started: getting-started.md
-  - Setup: setup.md
+  - Patterns:
+      - Single Region Basic: patterns/single-region-basic.md
+      - Multi Region Basic: patterns/multi-region-basic.md
+      - Multi Region Advanced: patterns/multi-region-advanced.md
   - Architectures:
       - Account Structure: architectures/account-structure.md
       - Identity Management: architectures/identity-management.md
@@ -125,7 +129,3 @@ nav:
           - Intermediate: architectures/network-intermediate.md
           - Advanced: architectures/network-advanced.md
       - Workload account: architectures/workload-account.md
-  - Patterns:
-      - Single Region Basic: patterns/single-region-basic.md
-      - Multi Region Basic: patterns/multi-region-basic.md
-      - Multi Region Advanced: patterns/multi-region-advanced.md
