@@ -2,13 +2,13 @@
 
 Welcome to AWS Account Factory for Terraform (AFT) Blueprints!
 
-This project contains a collection of AFT customization patterns to demonstrate how to implement core service architectures in a green field Control Tower landing zone, that can be used by AWS customers, partners, and internal AWS teams.
+This project provides a collection of AFT customization patterns for the AWS Control Tower landing zone. These patterns demonstrate how to implement core service architectures in a greenfield environment, that can be used as examples by AWS customers, partners, and internal AWS teams.
 
 ## Introducing AFT Blueprints
 
-The AFT Blueprints project provides a set of pre-defined architectural patterns that can be easily deployed using AWS Control Tower and the Account Factory for Terraform (AFT). These patterns serve as a blueprint for a comprehensive landing zone, enabling users to kickstart their cloud journey with a robust and secure foundation. For now, the project has made available architectures for Network and DNS, Centralized Backup, Identity Management and security services on AWS.
+The AFT Blueprints project provides a set of pre-defined architectural patterns which can be easily deployed using AWS Control Tower and the Account Factory for Terraform (AFT). These patterns serve as a blueprint for a comprehensive landing zone, enabling users to kickstart their cloud journey with a robust and secure foundation. The project currently provides example architectures for the following services within the Control Tower environment: Network and DNS, Centralized Backup, Identity Management, and Security.
 
-At the heart of the AFT Blueprints project is the goal of empowering AWS customers to accelerate their cloud transformation by leveraging a proven and highly automated approach. By proving these predefined patterns, organizations can learn how to reduce the time and effort required to establish a cloud-ready environment right at the start of their journey.
+The core goal of the AFT Blueprints project is to empower AWS customers to accelerate their cloud transformation. It does this by providing a proven and highly automated approach. By offering these predefined architectural patterns, the project aims to help organizations reduce the time and effort required to establish a cloud-ready environment at the outset of their cloud journey.
 
 ## Things to keep in mind
 
