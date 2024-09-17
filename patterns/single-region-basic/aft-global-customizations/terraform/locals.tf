@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 locals {
-  tags       = jsondecode(lookup(module.aft_custom_fields.values, "tags", "{}"))
-  features   = jsondecode(lookup(module.aft_custom_fields.values, "features", "{}"))
-  account_id = data.aws_caller_identity.current.account_id
+  tags     = jsondecode(lookup(module.aft_custom_fields.values, "tags", "{}"))
+  features = jsondecode(lookup(module.aft_custom_fields.values, "features", "{}"))
 }

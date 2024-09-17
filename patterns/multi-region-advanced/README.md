@@ -35,3 +35,12 @@ See more details in the [Identity Management](../../docs/architectures/identity-
 All the patterns include the same configuration for basic AWS Security services, such as AWS Security Hub and Amazon GuardDuty.
 
 See more details in the [Security Services](../../docs/architectures/security.md){:target="_blank"} architecture page.
+
+## Global Customizations
+
+This pattern also includes global customizations that are applied across all accounts. These encompass the definition of the IAM password policy, as well as account-level configurations such as S3 Block Public Access, AMI Block Public Access, EBS Encryption Enforcement, and IMDSv2 Enforcement.
+
+## Account Provisioning Customizations
+
+No account provisioning customizations other than the AFT default are available for this pattern.
+

@@ -1,16 +1,47 @@
-# Global Customizations - IAM Password Policy
+# Global Customizations
 
-This is an example of configuring an IAM Password Policy using AFT Global Customizations. As this is a
-single Terraform resource, and is only required once per AWS Account. We can place the code in the main.tf
-file in aft-global-customizations.
+See below the list of available global configurations:
 
-It is highly recommended from AWS Secuyrity Best Practices that a strong password policy be set for any IAM
-based users.
+## IAM Password Policy
 
-## Assumptions
+According to AWS Security Best Practices, it is strongly recommended to implement a robust password policy for all IAM users. We therefore consider this configuration a mandatory requirement across all accounts. No configuration is needed.
 
-- Account Factory for Terraform is used or a repository and/or TF workspace is setup for AWS Account.
+## Account Default Configuration
 
-## References
+AWS Offers a few configuration options to be applied at account level, such as S3 Block Public Access, AMI Block Public Access, EBS Encryption Enforcement and IMDSv2 Enforcement. We make these settings available via a module, and you can set the value of whether each of these items should be applied by default or not.
 
-- Terraform Docs: [iam_account_password_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_password_policy)
+Find the module `default_account_config_*` in the `main.tf` file and change the **lookup** default value for each configuration option: `lookup(local.features, "feature_name", true|false)`.
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| aft\_custom\_fields | ./modules/custom_fields | n/a |
+| primary\_default\_account\_config | ./modules/default_account_config | n/a |
+| secondary\_default\_account\_config | ./modules/default_account_config | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_iam_account_password_policy.strict](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_password_policy) | resource |
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->

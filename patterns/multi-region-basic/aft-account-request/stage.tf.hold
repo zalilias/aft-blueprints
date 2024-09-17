@@ -36,7 +36,6 @@ module "stage" {
     tags = jsonencode({
       env = "stage"
     })
-    ou = "Staging"
   }
 
   account_customizations_name = "APP_PROD"

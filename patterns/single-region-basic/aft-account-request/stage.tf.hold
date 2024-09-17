@@ -26,7 +26,6 @@ module "stage" {
   }
 
   custom_fields = {
-    regions  = jsonencode(["primary"])
     phz_name = "myapp.stage.on.aws"
     vpc = jsonencode({
       identifier  = "payment"
@@ -36,7 +35,6 @@ module "stage" {
     tags = jsonencode({
       env = "stage"
     })
-    ou = "Staging"
   }
 
   account_customizations_name = "APP_PROD"

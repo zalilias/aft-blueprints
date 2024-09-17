@@ -38,7 +38,6 @@ module "development" {
       ebs_encryption = false
       imdsv2         = false
     })
-    ou = "Development"
   }
 
   account_customizations_name = "APP_DEV"

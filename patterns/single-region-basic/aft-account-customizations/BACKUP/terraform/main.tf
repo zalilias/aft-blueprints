@@ -92,58 +92,6 @@ module "opt_in_services_primary" {
 
 }
 
-module "aws_backup_secondary" {
-  source = "../../common/modules/backup/central_vault"
-  providers = {
-    aws = aws.secondary
-  }
-  depends_on = [aws_organizations_delegated_administrator.backup]
-
-  backup_vault_name        = "central-vault"
-  enable_backup_vault_lock = true
-  backup_vault_lock_config = {
-    min_retention_days = 7
-    max_retention_days = 365
-  }
-  create_backup_roles = false
-  tags                = local.tags
-}
-
-module "opt_in_services_secondary" {
-  source = "../../common/modules/backup/opt_in_services"
-  providers = {
-    aws = aws.org-management-secondary
-  }
-  depends_on = [
-    module.aws_backup_secondary
-  ]
-
-  opt_in_services = {
-    "Aurora"                 = true
-    "DocumentDB"             = true
-    "DynamoDB"               = true
-    "EBS"                    = true
-    "EC2"                    = true
-    "EFS"                    = true
-    "FSx"                    = true
-    "Neptune"                = true
-    "RDS"                    = true
-    "Storage Gateway"        = true
-    "VirtualMachine"         = true
-    "Redshift"               = true
-    "CloudFormation"         = true
-    "S3"                     = true
-    "Timestream"             = true
-    "SAP HANA on Amazon EC2" = false
-  }
-  advanced_features = {
-    "DynamoDB" = true
-    "EFS"      = true
-  }
-  tags = local.tags
-
-
-}
 module "aws_backup_report" {
   source = "../../common/modules/backup/backup_report"
   providers = {
@@ -152,12 +100,10 @@ module "aws_backup_report" {
 
   depends_on = [
     module.aws_backup_primary,
-    module.aws_backup_secondary
   ]
 
   report_regions = [
     data.aws_region.primary.name,
-    data.aws_region.secondary.name,
   ]
   tags = local.tags
 }

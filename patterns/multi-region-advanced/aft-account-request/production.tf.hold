@@ -37,7 +37,6 @@ module "production" {
     tags = jsonencode({
       env = "prod"
     })
-    ou = "Production"
   }
 
   account_customizations_name = "APP_PROD"

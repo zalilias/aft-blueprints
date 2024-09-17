@@ -23,7 +23,7 @@ This is where you define what runs before/after Terraform, as well as the order 
 
 ### Sample api-helpers.sh
 
-Sample #1 - Using AWS CLI to query for resources, save to a variable, and then pass to a script. In the example below, all running instances are queried, stopped, and started using AWS CLI and custom Python scritpts.
+Sample #1 - Using AWS CLI to query for resources, save to a variable, and then pass to a script. In the example below, all running instances are queried, stopped, and started using AWS CLI and custom Python scripts.
 ```
 instances=$(aws ec2 describe-instances --filters "Name=instance-state-name,Values=running")
 python ./python/source/stop_instances.py --instances $instances

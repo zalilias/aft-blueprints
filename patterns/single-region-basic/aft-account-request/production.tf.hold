@@ -27,7 +27,6 @@ module "production" {
   }
 
   custom_fields = {
-    regions  = jsonencode(["primary", "secondary"])
     phz_name = "myapp.prod.on.aws"
     vpc = jsonencode({
       identifier  = "payment"
@@ -37,7 +36,6 @@ module "production" {
     tags = jsonencode({
       env = "prod"
     })
-    ou = "Production"
   }
 
   account_customizations_name = "APP_PROD"
