@@ -1,22 +1,22 @@
 # Multi Region Advanced - Network Customization
 
-This Terraform configuration is designed to customize the network infrastructure in an advanced and multi AWS region. 
+This Terraform configuration is designed to customize the network infrastructure in multi AWS region.
 
-The following resources will be deployed by this solution (Not limited to only those below):
+The following resources will be deployed by this solution (not limited to those below):
 
-- Centralized Inspection VPC for East-West and North-South traffic inspection
-- Centralized Endpoints VPC
-- AWS Direct Connect 
-- AWS Transit Gateway Site-to-Site VPN
-- AWS Network Firewall
-- Amazon VPC IP Address Manager (IPAM)
 - AWS Transit Gateway
-- AWS Systems Manager Parameters
-- Amazon Route 53
+- Amazon VPC IP Address Manager (IPAM)
+- Centralized Inspection VPC for East-West and North-South traffic
+- AWS Network Firewall
+- Centralized Endpoints VPC for Route 53 Endpoints and VPC Endpoints
+- Amazon Route 53 Private Hosted Zone
+- Amazon Route 53 Endpoint Resolvers and Rules
+- AWS Direct Connect Gateway
+- AWS Transit Gateway Site-to-Site VPN
 
 ## How to use
 
-Update the `variable.auto.tfvars` file with the corresponding values:
+Update the `variable.auto.tfvars` file with the corresponding values for:
 
 ### Amazon VPC IP Address Manager (IPAM)
 
@@ -24,7 +24,7 @@ Update the `variable.auto.tfvars` file with the corresponding values:
 
 Example:
 
-```
+```terraform
 aws_ip_address_plan = {
   global_cidr_blocks = ["10.10.0.0/16","10.20.0.0/16"]
   primary_region = {
@@ -60,23 +60,13 @@ aws_ip_address_plan = {
 }
 ```
 
-- Review and change any parameter from `global_ipam.tf` file
+### Choose the Availability Zones to be used by VPCs across all accounts
 
-Example: 
-
-```
-allocation_default_netmask_length = "23"
-allocation_max_netmask_length     = "24"
-allocation_min_netmask_length     = "21"
-```
-
-### Choose the Availability Zones to be used by the Egress VPC
-
-- Add the availability zones allowed to be used in this region.
+- Add the availability zones allowed to be used in each region.
 
 Example:
 
-```
+```terraform
 aws_availability_zones = {
   primary_region = {
     az1 = "us-east-1a"
@@ -91,11 +81,11 @@ aws_availability_zones = {
 
 ### Configure the AWS Site-to-Site VPN connection
 
--  Change the VPN information to be used in AWS regions.
+- Change the VPN information to be used in AWS regions.
 
 Example:
 
-```
+```terraform
 aws_vpn_info = {
   primary_region = {
     cgw_ip_address = "1.1.1.1"
@@ -108,23 +98,18 @@ aws_vpn_info = {
 }
 ```
 
-### Configure the AWS Direct Connect connection
+### Configure the AWS Direct Connect Gateway
 
-- Add the Direct Connect connection information to be used in AWS regions.
+- Provide the AWS Direct Connect information to be used.
 
 Example:
 
-```
-{
+```terraform
+aws_dx_info = {
   gateway_name = "aws-dx-gateway"
   bgp_asn      = "64550"
 }
 ```
-
-
-### Create the Amazon Route 53 Private Hosted Zone
-
-- Review the name of the central private hosted zone on the `global_dns.tf` file.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

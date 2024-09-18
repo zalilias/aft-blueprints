@@ -1,19 +1,19 @@
 # Multi Region Basic - Network Customization
 
-This Terraform configuration is designed to customize the network infrastructure in a multi AWS region. 
+This Terraform configuration is designed to customize the network infrastructure in a multi AWS region.
 
-The following resources will be deployed by this solution (Not limited to only those below):
+The following resources will be deployed by this solution (not limited to those below):
 
-- Centralized Egress VPC
-- Centralized Endpoints VPC
-- Amazon VPC IP Address Manager (IPAM)
 - AWS Transit Gateway
-- AWS Systems Manager Parameters
-- Amazon Route 53
+- Amazon VPC IP Address Manager (IPAM)
+- Centralized Egress VPC with NAT Gateway
+- Centralized Endpoints VPC for Route 53 Endpoints and VPC Endpoints
+- Amazon Route 53 Private Hosted Zone
+- Amazon Route 53 Endpoint Resolvers and Rules
 
 ## How to use
 
-Update the `variable.auto.tfvars` file with the corresponding values:
+Update the `variable.auto.tfvars` file with the corresponding values for:
 
 ### Amazon VPC IP Address Manager (IPAM)
 
@@ -21,7 +21,7 @@ Update the `variable.auto.tfvars` file with the corresponding values:
 
 Example:
 
-```
+```terraform
 aws_ip_address_plan = {
   global_cidr_blocks = ["10.10.0.0/16","10.20.0.0/16"]
   primary_region = {
@@ -57,23 +57,13 @@ aws_ip_address_plan = {
 }
 ```
 
-- Review and change any parameter from `global_ipam.tf` file
+### Choose the Availability Zones to be used by VPCs across all accounts
 
-Example: 
-
-```
-allocation_default_netmask_length = "23"
-allocation_max_netmask_length     = "24"
-allocation_min_netmask_length     = "21"
-```
-
-### Choose the Availability Zones to be used by the Egress VPC
-
-- Add the availability zones allowed to be used in this region.
+- Add the availability zones allowed to be used in each region.
 
 Example:
 
-```
+```terraform
 aws_availability_zones = {
   primary_region = {
     az1 = "us-east-1a"
@@ -85,11 +75,6 @@ aws_availability_zones = {
   }
 }
 ```
-
-### Create the Amazon Route 53 Private Hosted Zone
-
-- Review the name of the central private hosted zone on the `global_dns.tf` file.
-
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
