@@ -253,3 +253,6 @@ $RECYCLE.BIN/
 **/alt-providers.tf
 **/aft-input-auto.tfvars
 **/terraform.tfvars
+
+# Zip files
+**/*.zip
