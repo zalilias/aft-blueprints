@@ -8,15 +8,17 @@ At the core of the network design is a multi-region configuration, with cross-re
 
 Traffic between workload environments (prod, stage, dev) is sent to the inspection VPC and control is carried out via firewall rules, while traffic to/from the shared services environment (DNS, VPC endpoints, infrastructure services, etc.) is routed directly to all other environments. All VPCs make use of a centralized VPC flow logs mechanism, sending traffic logs to the Control Tower's Log Archive account.
 
-Additionally, to enable effective IP management integrated with AWS services, the Network account is used as the delegated administrator of the AWS VPC IP Address Manager for the entire organization. Different IP pools are created for each environment mentioned above, making it easier to control and manage IP addresses and routing domains.
+The pattern also includes a centralized endpoints VPC to provide a cost-effective way to manage AWS private endpoint services. It VPC also includes a centralized Amazon Route 53 Resolver endpoints, which combined with Amazon Route 53 Resolver Rules provide a centralized DNS resolution mechanism.
 
-The pattern also includes a centralized endpoints VPC to provide a cost-effective way to manage AWS private endpoint services. This VPC also includes centralized Amazon Route 53 Resolver endpoints, which combined with Amazon Route 53 Resolver Rules provide a centralized DNS resolution mechanism.
+The centralized DNS resolution architecture implemented by this pattern, provides a hybrid integration between Amazon Route 53 Private Hosted Zones (PHZ) and third-party DNS servers, enabling a bi-directional resolution mechanism. Moreover, this architecture also allows delegate for the delegation of "child" PHZs to each workload account, enabling individual teams to managed their DNS zones while still maintaining the DNS resolution across the entire organization.
+
+Additionally, to enable effective IP management integrated with AWS services, the Network account is used as the delegated administrator of the AWS VPC IP Address Manager for the entire organization. Different IP pools are created for each environment mentioned above, making it easier to control and manage IP addresses and routing domains.
 
 This pattern extends the network architecture to provide a path to establish a connection with an on-premises environment through either AWS Direct Connect or Transit Gateway Site-to-Site VPN, ensuring seamless and secure integration between the cloud and on-premises resources.
 
-The architecture is mirrored across all regions, ensuring that each region has the same services and resources implemented.
+The entire network architecture is mirrored across all regions, ensuring that each region has the same services and resources implemented.
 
-See more details in the [Network Advanced](../../docs/architectures/network-advanced.md){:target="_blank"} architecture page.
+See more details in the [Network Advanced](../../docs/architectures/network-advanced.md){:target="_blank"} and [Centralized DNS](../../docs/architectures/centralized-dns.md){:target="_blank"} architecture pages.
 
 ## Backup
 
@@ -26,7 +28,7 @@ See more details in the [Centralized Backup](../../docs/architectures/aws-backup
 
 ## Identity Management
 
-Additionally, the pattern sets up a delegated administrator account for the AWS IAM Identity Center service and includes a Terraform-based pipeline to dynamically deploy and manage Permission Sets.
+Additionally, the pattern sets up a delegated administrator account for the AWS IAM Identity Center and IAM Access Analyzer services. This includes a Terraform-based pipeline to dynamically deploy and manage Permission Sets, and an analyzer for external access analysis at organization level.
 
 See more details in the [Identity Management](../../docs/architectures/identity-management.md){:target="_blank"} architecture page.
 

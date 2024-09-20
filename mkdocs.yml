@@ -124,9 +124,10 @@ nav:
       - Account Structure: architectures/account-structure.md
       - Identity Management: architectures/identity-management.md
       - Backup: architectures/aws-backup.md
+      - DNS: architectures/centralized-dns.md
       - Network:
           - Basic: architectures/network-basic.md
           - Intermediate: architectures/network-intermediate.md
           - Advanced: architectures/network-advanced.md
       - Security: architectures/security.md
-      - Workload account: architectures/workload-account.md
+      - Workload Account: architectures/workload-account.md

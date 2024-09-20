@@ -29,7 +29,7 @@ resource "aws_organizations_delegated_administrator" "sso" {
 #######    Pipeline Resources    #######
 ########################################
 module "aws_ps_pipeline" {
-  source = "./modules/aws-ps-pipeline"
+  source = "../../common/modules/iam/permission-set-pipeline"
   providers = {
     aws.org-management = aws.org-management
     aws.aft-management = aws.aft-management
@@ -37,19 +37,41 @@ module "aws_ps_pipeline" {
   depends_on = [aws_organizations_delegated_administrator.sso]
 
   #use_control_tower_events = true
-  repository_name          = "aws-ps-pipeline"
-  main_branch_name         = "main"
-  test_branch_name         = "dev"
-  tags                     = local.tags
+  repository_name  = "aws-ps-pipeline"
+  main_branch_name = "main"
+  test_branch_name = "dev"
+  tags             = local.tags
 }
 
 
 ########################################
-#######    Pipeline Resources    #######
+#######    IAM Access Analyzer   #######
 ########################################
-# module "iam_access_analyzer" {
-#   source = "./modules/iam-access-analyzer"
+resource "aws_organizations_delegated_administrator" "iam_access_analyzer" {
+  provider = aws.org-management
 
-#   name = "iam-org-access-analyzer"
-#   type = "ORGANIZATION"
-# }
+  account_id        = data.aws_caller_identity.current.account_id
+  service_principal = "access-analyzer.amazonaws.com"
+}
+
+module "primary_iam_access_analyzer" {
+  source = "../../common/modules/iam/access-analyzer"
+  providers = {
+    aws = aws.primary
+  }
+
+  name = "iam-org-access-analyzer"
+  type = "ORGANIZATION"
+  tags = local.tags
+}
+
+module "secondary_iam_access_analyzer" {
+  source = "../../common/modules/iam/access-analyzer"
+  providers = {
+    aws = aws.secondary
+  }
+
+  name = "iam-org-access-analyzer"
+  type = "ORGANIZATION"
+  tags = local.tags
+}

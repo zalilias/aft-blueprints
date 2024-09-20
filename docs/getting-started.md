@@ -11,8 +11,8 @@ AFT Blueprints assumes you already have an AWS account with AWS Control Tower an
 
 Ensure that you have installed the following tools locally:
 
-- [awscli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html){:target="_blank"}
-- [terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli){:target="_blank"}
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html){:target="_blank"}
+- [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli){:target="_blank"}
 
 ## AFT bootstrap
 
@@ -36,31 +36,48 @@ We have also prepared an architecture diagram with our recommended structure of 
 
 Check all the available patterns at [Patterns](./patterns.md){:target="_blank"} section. They all have different components and architectures, from single-region landing zone to multi-region with centralized network inspection. Choose the right one for your needs, but please, keep in mind that depending on the pattern, the final cost of the environment may be higher or lower.
 
+## Understanding the Landing Zone parameters
+
+To automate the deployment of a Landing Zone, the patterns leverage AWS Systems Manager (SSM) parameters to guide the creation of resources across a multi-account environment. The following content outlines the specific parameters that are created in each account for this purpose.
+
+**AFT management account:**
+
+- `/org/core/accounts/network`:  Network Account Id.
+- `/org/core/accounts/backup`: Backup Account Id.
+- `/org/core/accounts/identity`: Identity Account Id.
+
+**Network account:**
+
+- `/org/core/network/availability-zones/{{ az-id }}`: Availability Zone Id to keep the consistency for VPCs across different accounts.
+- `/org/core/network/tgw-id`: The Id of the shared Transit Gateway.
+- `/org/core/network/tgw-route-table/{{ network-segment }}`: Transit Gateway route table Id to associate the VPC attachment for network segment (environment).
+- `/org/core/network/tgw-propagation-rules`:  VPC attachment propagation rules for all network segments.
+
 ## Preparing AFT repositories
 
 For each pattern, regardless of the one you have chosen, we have provided the content for all repositories (4) used in the AFT solution:
 
-- **aft-account-customizations**
 - **aft-global-customizations**
+- **aft-account-customizations**
 - **aft-account-provisioning-customizations**
 - **aft-account-request**
 
 Your first step is to copy the content for each into your own repositories configured in your AFT deployment. Do not commit and push yet, you need to make some adjustments.
 
-### **aft-account-customizations**
-
-1. In the **aft-account-customizations**, you must copy the [`modules`](https://github.com/awslabs/aft-blueprints/tree/main/modules) folder to the `common` directory. (e.g /common/modules)
-2. You also need to provide your own values for each customization folder inside the **aft-account-customizations**. Please, follow the instructions in the `README.md` file inside each terraform folder for each customization (e.g. /NETWORK/terraform/README.md).
-3. Once you have completed the last step, commit and push the changes to your **aft-account-customizations**.
-
 ### **aft-global-customizations**
 
-1. For the **aft-global-customizations**, please follow the instructions in the `README.md` file inside the terraform folder (e.g. /terraform/README.md).
+1. For the **aft-global-customizations**, please follow the instructions in the `README.md` file inside the terraform directory (e.g. /terraform/README.md).
 2. Once you have completed the last step, commit and push the changes to your **aft-global-customizations**.
+
+### **aft-account-customizations**
+
+1. In the **aft-account-customizations**, you must copy the [`modules`](https://github.com/awslabs/aft-blueprints/tree/main/modules) directory to the `common` directory. (e.g /common/modules)
+2. You also need to provide your own values for each customization directory inside the **aft-account-customizations**. Please, follow the instructions in the `README.md` file inside each terraform directory for each customization (e.g. /NETWORK/terraform/README.md).
+3. Once you have completed the last step, commit and push the changes to your **aft-account-customizations**.
 
 ### **aft-account-provisioning-customizations**
 
-1. For now **aft-account-provisioning-customizations**, please follow the instructions in the `README.md` file inside the terraform folder (e.g. /terraform/README.md).
+1. For now **aft-account-provisioning-customizations**, please follow the instructions in the `README.md` file inside the terraform directory (e.g. /terraform/README.md).
 2. Once you have completed the last step, commit and push the changes to your **aft-account-provisioning-customizations**.
 3. Make sure the **ct-aft-account-provisioning-customizations** pipeline in the AFT management account has run and completed successfully.
 

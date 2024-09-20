@@ -20,7 +20,7 @@ See more details in the [Centralized Backup](../../docs/architectures/aws-backup
 
 ## Identity Management
 
-Additionally, the pattern sets up a delegated administrator account for the AWS IAM Identity Center service and includes a Terraform-based pipeline to dynamically deploy and manage Permission Sets.
+Additionally, the pattern sets up a delegated administrator account for the AWS IAM Identity Center and IAM Access Analyzer services. This includes a Terraform-based pipeline to dynamically deploy and manage Permission Sets, and an analyzer for external access analysis at organization level.
 
 See more details in the [Identity Management](../../docs/architectures/identity-management.md){:target="_blank"} architecture page.
 
