@@ -8,6 +8,8 @@ This project provides a collection of AFT customization patterns for the AWS Con
 
 The AFT Blueprints project provides a set of pre-defined architectural patterns which can be easily deployed using AWS Control Tower and the Account Factory for Terraform (AFT). These patterns serve as a blueprint for a comprehensive landing zone, enabling users to kickstart their cloud journey with a robust and secure foundation. The project currently provides example architectures for the following services within the Control Tower environment: Network and DNS, Centralized Backup, Identity Management, and Security.
 
+The approach used in this project involves dynamic Terraform providers and a parametrized Landing Zone, aiming to minimize the complexity of the deployment process. The idea is to leverage integrations between the various architectural components, enabling cross-account and cross-region automation workflows, without requiring complex configuration inputs from the user. The objective is to streamline the deployment process, so that users only need to provision the target accounts with minimal environment-specific variable inputs.
+
 The core goal of the AFT Blueprints project is to empower AWS customers to accelerate their cloud transformation. It does this by providing a proven and highly automated approach. By offering these predefined architectural patterns, the project aims to help organizations reduce the time and effort required to establish a cloud-ready environment at the outset of their cloud journey.
 
 ## Consumption
