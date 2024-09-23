@@ -1,3 +1,59 @@
+# Single Region Basic - Network Customization
+
+This Terraform configuration is designed to customize the network infrastructure in a single AWS region.
+
+The following resources will be deployed by this solution (not limited to those below):
+
+- AWS Transit Gateway
+- Amazon VPC IP Address Manager (IPAM)
+- Centralized Egress VPC with NAT Gateway
+
+## How to use
+
+Update the `variable.auto.tfvars` file with the corresponding values for:
+
+### Amazon VPC IP Address Manager (IPAM)
+
+- Add the IP address plan which defines the CIDR blocks to be used in AWS regions.
+
+Example:
+
+```terraform
+  aws_ip_address_plan = {
+    global_cidr_blocks = ["10.10.0.0/16","10.20.0.0/16"]
+    primary_region = {
+      cidr_blocks = ["10.10.0.0/16"]
+      shared = {
+        cidr_blocks = ["10.10.0.0/18"]
+      }
+      prod = {
+        cidr_blocks = ["10.10.64.0/18"]
+      }
+      stage = {
+        cidr_blocks = ["10.10.128.0/18"]
+      }
+      dev = {
+        cidr_blocks = ["10.10.192.0/18"]
+      }
+    }
+  }
+```
+
+### Choose the Availability Zones to be used by VPCs across all accounts
+
+- Add the availability zones allowed to be used in this region.
+
+Example:
+
+```terraform
+aws_availability_zones = {
+  primary_region = {
+    az1 = "us-east-1a"
+    az2 = "us-east-1b"
+  }
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
