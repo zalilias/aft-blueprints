@@ -1,6 +1,8 @@
 # Multi region advanced pattern
 
-The **multi region advanced** AFT pattern provides a foundational cloud architecture, covering key services and configurations to establish a secure, multi-environment landing zone in multiple AWS Region and connecting the cloud with the on-premises environment.
+The **multi region advanced** AFT pattern provides a foundational cloud architecture, covering key services and configurations to establish a secure, multi-environment landing zone in multiple AWS Region and connecting the cloud with the on-premises environment. See the high-level target state diagram below.
+
+![High-level Target State](../../docs/static/aft-patterns-multi-region-advanced.jpg)
 
 ## Network
 

@@ -1,6 +1,8 @@
 # Single region basic pattern
 
-The **single region basic** AFT pattern provides a foundational cloud architecture, covering key services and configurations to establish a secure, multi-environment landing zone in a single AWS Region.
+The **single region basic** AFT pattern provides a foundational cloud architecture, covering key services and configurations to establish a secure, multi-environment landing zone in a single AWS Region. See the high-level target state diagram below.
+
+![High-level Target State](../../docs/static/aft-patterns-single-region-basic.jpg)
 
 ## Network
 

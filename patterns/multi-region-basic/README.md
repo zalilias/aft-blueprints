@@ -1,6 +1,8 @@
 # Multi region basic pattern
 
-The **multi region basic** AFT pattern provides a foundational cloud architecture, covering key services and configurations to establish a secure, multi-environment landing zone in multiple AWS Region.
+The **multi region basic** AFT pattern provides a foundational cloud architecture, covering key services and configurations to establish a secure, multi-environment landing zone in multiple AWS Region. See the high-level target state diagram below.
+
+![High-level Target State](../../docs/static/aft-patterns-multi-region-basic.jpg)
 
 ## Network
 
