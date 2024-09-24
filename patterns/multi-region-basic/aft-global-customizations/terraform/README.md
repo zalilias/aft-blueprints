@@ -1,5 +1,22 @@
 # Global Customizations
 
+Before start using the repository, you must define the regions you want to use in the `aft-config.j2` file:
+
+```json
+{% 
+  set regions = [
+    {
+      "key": "primary",
+      "name": "us-east-1"
+    },
+    {
+      "key": "secondary",
+      "name": "us-west-2"
+    }
+  ]
+%}
+```
+
 See below the list of available global configurations:
 
 ## IAM Password Policy

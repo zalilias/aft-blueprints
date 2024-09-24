@@ -1,5 +1,18 @@
 # Global Customizations
 
+Before start using the repository, you must define the region you want to use in the `aft-config.j2` file:
+
+```json
+{% 
+  set regions = [
+    {
+      "key": "primary",
+      "name": "us-east-1"
+    }
+  ]
+%}
+```
+
 See below the list of available global configurations:
 
 ## IAM Password Policy
@@ -29,7 +42,6 @@ No requirements.
 |------|--------|---------|
 | aft\_custom\_fields | ./modules/custom_fields | n/a |
 | primary\_default\_account\_config | ./modules/default_account_config | n/a |
-| secondary\_default\_account\_config | ./modules/default_account_config | n/a |
 
 ## Resources
 

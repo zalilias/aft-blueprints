@@ -1,4 +1,4 @@
-# Multi Region Basic - Network Customization
+# Network Customization - Multi Region Basic
 
 This Terraform configuration is designed to customize the network infrastructure in a multi AWS region.
 
@@ -11,7 +11,26 @@ The following resources will be deployed by this solution (not limited to those 
 - Amazon Route 53 Private Hosted Zone
 - Amazon Route 53 Endpoint Resolvers and Rules
 
+For more information, see the [Network Advanced](../../docs/architectures/network-advanced.md){:target="_blank"} and [Centralized DNS](../../docs/architectures/centralized-dns.md){:target="_blank"} architecture pages.
+
 ## How to use
+
+Define the regions you want to use in the `aft-config.j2` file:
+
+```json
+{% 
+  set regions = [
+    {
+      "key": "primary",
+      "name": "us-east-1"
+    },
+    {
+      "key": "secondary",
+      "name": "us-west-2"
+    }
+  ]
+%}
+```
 
 Update the `variable.auto.tfvars` file with the corresponding values for:
 

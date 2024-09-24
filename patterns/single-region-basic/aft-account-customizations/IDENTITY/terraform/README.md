@@ -1,4 +1,4 @@
-# Identity Management Customization - Multi Region Advanced
+# Identity Management Customization - Single Region Basic
 
 This Terraform code is designed to set up an identity management pipeline for AWS IAM Identity Center, providing an automated and dynamic way to manage Permission Sets in a multi-account environment. IAM Access Analyzer is also set up to perform external access analysis at the organization level.
 
@@ -62,12 +62,14 @@ After you have launched the account and deployed the pipeline, you must copy the
 | Name | Source | Version |
 |------|--------|---------|
 | aft\_custom\_fields | ../../common/modules/custom_fields | n/a |
-| aws\_ps\_pipeline | ./modules/aws-ps-pipeline | n/a |
+| aws\_ps\_pipeline | ../../common/modules/iam/permission-set-pipeline | n/a |
+| primary\_iam\_access\_analyzer | ../../common/modules/iam/access-analyzer | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_organizations_delegated_administrator.iam_access_analyzer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_delegated_administrator) | resource |
 | [aws_organizations_delegated_administrator.sso](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_delegated_administrator) | resource |
 | [aws_ssm_parameter.account_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |

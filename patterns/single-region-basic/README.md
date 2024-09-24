@@ -18,7 +18,7 @@ See more details in the [Network Basic](../../docs/architectures/network-basic.m
 
 The pattern also includes a centralized backup architecture with local vaults and a central vault in a dedicated AWS Backup account, providing consolidated backup management and recovery across the environments.
 
-See more details in the [Centralized Backup](../../docs/architectures/aws-backup.md){:target="_blank"} architecture page.
+See more details in the [Centralized AWS Backup](../../docs/architectures/aws-backup.md){:target="_blank"} architecture page.
 
 ## Identity Management
 

@@ -1,3 +1,47 @@
+# Identity Management Customization - Multi Region Basic
+
+This Terraform code is designed to set up an identity management pipeline for AWS IAM Identity Center, providing an automated and dynamic way to manage Permission Sets in a multi-account environment. IAM Access Analyzer is also set up to perform external access analysis at the organization level.
+
+The following resources will be deployed by this solution (not limited to those below):
+
+- AWS CodePipeline
+- AWS CodBuild
+- Amazon EventBridge Rule
+- AWS S3 Bucket
+- AWS DynamoDB Table
+- AWS IAM Access Analyzer
+
+For more information, see the [Identity Management](../../docs/architectures/identity-management.md){:target="_blank"} architecture page.
+
+## How to use
+
+Define the regions you want to use in the `aft-config.j2` file:
+
+```json
+{% 
+  set regions = [
+    {
+      "key": "primary",
+      "name": "us-east-1"
+    },
+    {
+      "key": "secondary",
+      "name": "us-west-2"
+    }
+  ]
+%}
+```
+
+<!-- 
+Update the `variable.auto.tfvars` file with the corresponding values for:
+
+### AWS Permission Set Pipeline
+
+### AWS IAM Access Analyzer
+-->
+
+After you have launched the account and deployed the pipeline, you must copy the contents of the [`assets/source/aws-ps-pipeline`](https://github.com/awslabs/aft-blueprints/tree/main/assets/source/aws-ps-pipeline) directory to the repository associated with the pipeline (AWS CodeCommit or GitHub). There you will find the Terraform files used to run the public module ["permission-sets"](https://registry.terraform.io/modules/aws-ia/permission-sets/aws/latest) and apply a sample permission set defined in the `templates` directory.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

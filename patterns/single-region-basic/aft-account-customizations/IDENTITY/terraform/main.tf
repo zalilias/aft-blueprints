@@ -64,14 +64,3 @@ module "primary_iam_access_analyzer" {
   type = "ORGANIZATION"
   tags = local.tags
 }
-
-module "secondary_iam_access_analyzer" {
-  source = "../../common/modules/iam/access-analyzer"
-  providers = {
-    aws = aws.secondary
-  }
-
-  name = "iam-org-access-analyzer"
-  type = "ORGANIZATION"
-  tags = local.tags
-}

@@ -1,3 +1,116 @@
+# Centralized AWS Backup Customization - Multi Region Basic
+
+This Terraform code is designed to configure the AWS Backup service to provide a centralized backup architecture in a multi-account environment.
+
+The following resources will be deployed by this solution (not limited to those below):
+
+- A centralized AWS Backup Vault
+- An AWS Backup Vault policy allowing cross-account access
+- An AWS Backup Vault Lock configuration
+- AWS KMS Key allowing cross-account access
+- AWS IAM Role for backup service
+
+For more information, see the [Centralized AWS Backup](../../docs/architectures/aws-backup.md){:target="_blank"} architecture page.
+
+## How to use
+
+Define the regions you want to use in the `aft-config.j2` file:
+
+```json
+{% 
+  set regions = [
+    {
+      "key": "primary",
+      "name": "us-east-1"
+    },
+    {
+      "key": "secondary",
+      "name": "us-west-2"
+    }
+  ]
+%}
+```
+
+<!-- 
+Update the `variable.auto.tfvars` file with the corresponding values for:
+
+### AWS Backup Vault
+
+### AWS Backup Opt-In Services 
+
+### AWS Backup Report
+-->
+
+This customizations enables the AWS Backup cross-account management feature. However, if you want to manage backup policies through AWS Organizations in a centralized place, we recommend you to delegate AWS Backup policies to the backup account after launching the it and applying the customization. Check out the [Managing AWS Backup resources across multiple AWS accounts](https://docs.aws.amazon.com/aws-backup/latest/devguide/manage-cross-account.html) documentation, more specifically in the section **Delegate AWS Backup policies through AWS Organizations**.
+
+See below an example of an AWS Organizations delegation policy. Replace the placeholders `BACKUP-ACCOUNT-ID` and `ORG-MANAGEMENT-ACCOUNT-ID` with your own values.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowOrganizationsRead",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::{{ BACKUP-ACCOUNT-ID }}:root"
+      },
+      "Action": [
+        "organizations:Describe*",
+        "organizations:List*"
+      ],
+      "Resource": [
+        "arn:aws:organizations::{{ ORG-MANAGEMENT-ACCOUNT-ID }}:root/*",
+        "arn:aws:organizations::{{ ORG-MANAGEMENT-ACCOUNT-ID }}:ou/*",
+        "arn:aws:organizations::{{ ORG-MANAGEMENT-ACCOUNT-ID }}:account/*"
+      ]
+    },
+    {
+      "Sid": "AllowBackupPoliciesManagement",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::{{ BACKUP-ACCOUNT-ID }}:root"
+      },
+      "Action": [
+        "organizations:List*",
+        "organizations:Describe*",
+        "organizations:CreatePolicy",
+        "organizations:UpdatePolicy",
+        "organizations:DeletePolicy"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "organizations:PolicyType": "BACKUP_POLICY"
+        }
+      }
+    },
+    {
+      "Sid": "AllowBackupPoliciesAttachmentAndDetachmentToAllAccountsAndOUs",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::{{ BACKUP-ACCOUNT-ID }}:root"
+      },
+      "Action": [
+        "organizations:AttachPolicy",
+        "organizations:DetachPolicy"
+      ],
+      "Resource": [
+        "arn:aws:organizations::{{ ORG-MANAGEMENT-ACCOUNT-ID }}:root/*",
+        "arn:aws:organizations::{{ ORG-MANAGEMENT-ACCOUNT-ID }}:ou/*",
+        "arn:aws:organizations::{{ ORG-MANAGEMENT-ACCOUNT-ID }}:account/*",
+        "arn:aws:organizations::{{ ORG-MANAGEMENT-ACCOUNT-ID }}:policy/*/backup_policy/*"        
+      ],
+      "Condition": {
+        "StringEquals": {
+          "organizations:PolicyType": "BACKUP_POLICY"
+        }
+      }
+    }
+  ]
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

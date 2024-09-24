@@ -53,10 +53,6 @@ variable "aws_availability_zones" {
         az1 = "us-east-1a"
         az2 = "us-east-1b"
       }
-      secondary_region = {
-        az1 = "us-west-2a"
-        az2 = "us-west-2b"
-      }
     }
     ```
 EOF

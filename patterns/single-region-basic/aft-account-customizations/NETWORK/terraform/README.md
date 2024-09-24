@@ -1,4 +1,4 @@
-# Single Region Basic - Network Customization
+# Network Customization - Single Region Basic
 
 This Terraform configuration is designed to customize the network infrastructure in a single AWS region.
 
@@ -8,7 +8,22 @@ The following resources will be deployed by this solution (not limited to those 
 - Amazon VPC IP Address Manager (IPAM)
 - Centralized Egress VPC with NAT Gateway
 
+For more information, see the [Network Basic](../../docs/architectures/network-basic.md){:target="_blank"} architecture page.
+
 ## How to use
+
+Define the region you want to use in the `aft-config.j2` file:
+
+```json
+{% 
+  set regions = [
+    {
+      "key": "primary",
+      "name": "us-east-1"
+    }
+  ]
+%}
+```
 
 Update the `variable.auto.tfvars` file with the corresponding values for:
 
@@ -93,7 +108,7 @@ aws_availability_zones = {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| aws\_availability\_zones | "Map of availability zones allowed to be used in this region." Example: ```aws_availability_zones = { primary_region = { az1 = "us-east-1a" az2 = "us-east-1b" } secondary_region = { az1 = "us-west-2a" az2 = "us-west-2b" } }``` | `map(any)` | n/a | yes |
+| aws\_availability\_zones | "Map of availability zones allowed to be used in this region." Example: ```aws_availability_zones = { primary_region = { az1 = "us-east-1a" az2 = "us-east-1b" } }``` | `map(any)` | n/a | yes |
 | aws\_ip\_address\_plan | "Object with IP address plan which defines the CIDR blocks to be used in AWS regions." Example: ```aws_ip_address_plan = { global_cidr_blocks = ["10.10.0.0/16","10.20.0.0/16"] primary_region = { cidr_blocks = ["10.10.0.0/16"] shared = { cidr_blocks = ["10.10.0.0/18"] } prod = { cidr_blocks = ["10.10.64.0/18"] } stage = { cidr_blocks = ["10.10.128.0/18"] } dev = { cidr_blocks = ["10.10.192.0/18"] } } }``` | ```object({ global_cidr_blocks = list(string) primary_region = object({ cidr_blocks = list(string) shared = object({ cidr_blocks = list(string) }) prod = object({ cidr_blocks = list(string) }) stage = object({ cidr_blocks = list(string) }) dev = object({ cidr_blocks = list(string) }) }) })``` | n/a | yes |
 
 ## Outputs
