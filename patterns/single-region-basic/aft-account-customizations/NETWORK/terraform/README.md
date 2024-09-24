@@ -8,7 +8,7 @@ The following resources will be deployed by this solution (not limited to those 
 - Amazon VPC IP Address Manager (IPAM)
 - Centralized Egress VPC with NAT Gateway
 
-For more information, see the [Network Basic](../../../../../docs/architectures/network-basic.md) architecture page.
+For more information, see the [Network Basic](https://awslabs.github.io/aft-blueprints/architectures/network-basic) architecture page.
 
 ## How to use
 

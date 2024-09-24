@@ -11,7 +11,7 @@ The following resources will be deployed by this solution (not limited to those 
 - Amazon Route 53 Private Hosted Zone
 - Amazon Route 53 Endpoint Resolvers and Rules
 
-For more information, see the [Network Advanced](../../../../../docs/architectures/network-advanced.md) and [Centralized DNS](../../../../../docs/architectures/centralized-dns.md) architecture pages.
+For more information, see the [Network Intermediate](https://awslabs.github.io/aft-blueprints/architectures/network-intermediate) and [Centralized DNS](https://awslabs.github.io/aft-blueprints/architectures/centralized-dns) architecture pages.
 
 ## How to use
 

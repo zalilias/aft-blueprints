@@ -10,7 +10,7 @@ The following resources will be deployed by this solution (not limited to those 
 - AWS KMS Key allowing cross-account access
 - AWS IAM Role for backup service
 
-For more information, see the [Centralized AWS Backup](../../../../../docs/architectures/aws-backup.md) architecture page.
+For more information, see the [Centralized AWS Backup](https://awslabs.github.io/aft-blueprints/architectures/aws-backup) architecture page.
 
 ## How to use
 

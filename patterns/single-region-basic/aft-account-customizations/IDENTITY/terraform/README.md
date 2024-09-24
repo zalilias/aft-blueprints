@@ -11,7 +11,7 @@ The following resources will be deployed by this solution (not limited to those 
 - AWS DynamoDB Table
 - AWS IAM Access Analyzer
 
-For more information, see the [Identity Management](../../../../../docs/architectures/identity-management.md) architecture page.
+For more information, see the [Identity Management](https://awslabs.github.io/aft-blueprints/architectures/identity-management) architecture page.
 
 ## How to use
 
