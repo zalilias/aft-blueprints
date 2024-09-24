@@ -8,13 +8,13 @@ The following resources will be deployed by this solution (not limited to those 
 - Amazon VPC IP Address Manager (IPAM)
 - Centralized Egress VPC with NAT Gateway
 
-For more information, see the [Network Basic](../../docs/architectures/network-basic.md){:target="_blank"} architecture page.
+For more information, see the [Network Basic](../../../../../docs/architectures/network-basic.md) architecture page.
 
 ## How to use
 
 Define the region you want to use in the `aft-config.j2` file:
 
-```json
+```jinja
 {% 
   set regions = [
     {

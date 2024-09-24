@@ -13,13 +13,13 @@ The following resources will be deployed by this solution (not limited to those 
 - AWS Direct Connect Gateway
 - AWS Transit Gateway Site-to-Site VPN
 
-For more information, see the [Network Advanced](../../docs/architectures/network-advanced.md){:target="_blank"} and [Centralized DNS](../../docs/architectures/centralized-dns.md){:target="_blank"} architecture pages.
+For more information, see the [Network Advanced](../../../../../docs/architectures/network-advanced.md) and [Centralized DNS](../../../../../docs/architectures/centralized-dns.md) architecture pages.
 
 ## How to use
 
 Define the regions you want to use in the `aft-config.j2` file:
 
-```json
+```jinja
 {% 
   set regions = [
     {

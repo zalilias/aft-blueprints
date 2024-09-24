@@ -10,13 +10,13 @@ The following resources will be deployed by this solution (not limited to those 
 - AWS KMS Key allowing cross-account access
 - AWS IAM Role for backup service
 
-For more information, see the [Centralized AWS Backup](../../docs/architectures/aws-backup.md){:target="_blank"} architecture page.
+For more information, see the [Centralized AWS Backup](../../../../../docs/architectures/aws-backup.md) architecture page.
 
 ## How to use
 
 Define the regions you want to use in the `aft-config.j2` file:
 
-```json
+```jinja
 {% 
   set regions = [
     {
