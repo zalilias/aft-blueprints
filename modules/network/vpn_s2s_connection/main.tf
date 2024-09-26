@@ -58,7 +58,7 @@ resource "aws_ec2_transit_gateway_route_table_association" "this" {
 }
 
 resource "aws_ec2_transit_gateway_route_table_propagation" "this" {
-  for_each = toset(var.tgw_rt_propagations)
+  for_each = var.tgw_rt_propagations
 
   transit_gateway_attachment_id  = aws_vpn_connection.vpn_connection.transit_gateway_attachment_id
   transit_gateway_route_table_id = each.value

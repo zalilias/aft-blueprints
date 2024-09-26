@@ -22,5 +22,5 @@ module "s2s_vpn_connection" {
   transit_gateway_id  = module.tgw.transit_gateway_id
   static_routes_only  = var.vpn_static_routes_only
   tgw_rt_association  = module.tgw.route_table_id["gateway"]
-  tgw_rt_propagations = [module.tgw.route_table_id["inspection"]]
+  tgw_rt_propagations = { "inspection" = module.tgw.route_table_id["inspection"] }
 }

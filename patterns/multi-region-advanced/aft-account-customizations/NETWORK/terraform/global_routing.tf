@@ -103,7 +103,7 @@ module "primary_dx_gw_association" {
   associated_gateway_id = module.primary_region.tgw_id
   allowed_prefixes      = var.aws_ip_address_plan.primary_region.cidr_blocks
   tgw_rt_association    = module.primary_region.tgw_route_table_id["gateway"]
-  tgw_rt_propagations   = [module.primary_region.tgw_route_table_id["inspection"]]
+  tgw_rt_propagations   = { "inspection" = module.primary_region.tgw_route_table_id["inspection"] }
 }
 
 module "secondary_dx_gw_association" {
@@ -116,5 +116,5 @@ module "secondary_dx_gw_association" {
   associated_gateway_id = module.secondary_region.tgw_id
   allowed_prefixes      = var.aws_ip_address_plan.secondary_region.cidr_blocks
   tgw_rt_association    = module.secondary_region.tgw_route_table_id["gateway"]
-  tgw_rt_propagations   = [module.secondary_region.tgw_route_table_id["inspection"]]
+  tgw_rt_propagations   = { "inspection" = module.secondary_region.tgw_route_table_id["inspection"] }
 }

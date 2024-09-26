@@ -41,7 +41,7 @@ variable "tgw_rt_association" {
 
 variable "tgw_rt_propagations" {
   description = "Transit Gateway route table IDs to propagate routes based VPN BGP configuration."
-  type        = list(string)
+  type        = map(string)
 }
 
 variable "tags" {

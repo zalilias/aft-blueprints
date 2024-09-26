@@ -26,5 +26,5 @@ variable "tgw_rt_association" {
 
 variable "tgw_rt_propagations" {
   description = "Transit Gateway route table IDs to propagate routes based DX GW BGP configuration."
-  type        = list(string)
+  type        = map(string)
 }

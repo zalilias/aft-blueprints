@@ -13,7 +13,7 @@ resource "aws_ec2_transit_gateway_route_table_association" "this" {
 }
 
 resource "aws_ec2_transit_gateway_route_table_propagation" "this" {
-  for_each = toset(var.tgw_rt_propagations)
+  for_each = var.tgw_rt_propagations
 
   transit_gateway_attachment_id  = data.aws_ec2_transit_gateway_dx_gateway_attachment.this.id
   transit_gateway_route_table_id = each.value
