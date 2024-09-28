@@ -7,13 +7,13 @@ resource "aws_lambda_function" "aft_new_account_forward_event" {
   # checkov:skip=CKV_AWS_117:This is a full serveless function doesn't need VPC
   # checkov:skip=CKV_AWS_173:This parameter is not a SecureString and there is no need to encrypt
   # checkov:skip=CKV_AWS_272:This function doesn't need to validate code-signing
-  count    = var.use_control_tower_events ? 0 : 1
+  count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   provider = aws.aft-management
 
   filename                       = "${path.module}/lambda/aft-new-account-forward-event.zip"
   function_name                  = "aft-new-account-forward-event"
   description                    = "This Lambda will get the AFT notifications and send the CT event to EventBridge"
-  role                           = aws_iam_role.lambda_role[0].arn
+  role                           = aws_iam_role.lambda[0].arn
   handler                        = "index.lambda_handler"
   source_code_hash               = data.archive_file.aft_new_account_forward_event[0].output_base64sha256
   runtime                        = "python3.12"
@@ -29,7 +29,7 @@ resource "aws_lambda_function" "aft_new_account_forward_event" {
 }
 
 resource "aws_lambda_permission" "aft_new_account_forward_event" {
-  count    = var.use_control_tower_events ? 0 : 1
+  count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   provider = aws.aft-management
 
   statement_id  = "AllowExecutionFromSNS"
@@ -40,7 +40,7 @@ resource "aws_lambda_permission" "aft_new_account_forward_event" {
 }
 
 resource "aws_sns_topic_subscription" "aft_new_account_forward_event" {
-  count    = var.use_control_tower_events ? 0 : 1
+  count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   provider = aws.aft-management
 
   topic_arn           = data.aws_ssm_parameter.aft_sns_notification_topic_arn[0].value

@@ -2,7 +2,7 @@
 
 Welcome to [AWS Control Tower Account Factory for Terraform](https://docs.aws.amazon.com/controltower/latest/userguide/aft-overview.html) (AFT) Blueprints!
 
-This project provides a collection of AFT customization patterns for the [AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html) landing zone. AWS customers, partners, and internal AWS teams can make use of these patterns to learn how to implement core service architectures in a greenfield environment.
+This project provides a collection of AFT customization patterns for [AWS Control Tower](https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html) landing zones. AWS customers, partners, and internal AWS teams can make use of these patterns to learn how to implement core service architectures in a greenfield environment.
 
 ## Introducing AFT Blueprints
 

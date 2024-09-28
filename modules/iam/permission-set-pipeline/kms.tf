@@ -9,7 +9,7 @@ resource "aws_kms_key" "cmk" {
 }
 
 resource "aws_kms_alias" "cmk_alias" {
-  name          = "alias/${var.app_name}"
+  name          = "alias/${var.solution_name}"
   target_key_id = aws_kms_key.cmk.key_id
 }
 
@@ -63,8 +63,8 @@ data "aws_iam_policy_document" "cmk_policy" {
     principals {
       type = "AWS"
       identifiers = [
-        "${aws_iam_role.codebuild_role.arn}",
-        "${aws_iam_role.codepipeline_role.arn}"
+        "${aws_iam_role.codebuild.arn}",
+        "${aws_iam_role.codepipeline.arn}"
       ]
     }
     principals {

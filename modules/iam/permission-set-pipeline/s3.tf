@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 resource "aws_s3_bucket" "pipeline" {
-  bucket = "${var.app_name}-codebuild-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
+  bucket = "${var.solution_name}-codebuild-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
   tags   = var.tags
 }
 
@@ -33,7 +33,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "pipeline" {
 }
 
 resource "aws_s3_bucket" "tf_backend" {
-  bucket = "${var.app_name}-tf-backend-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
+  bucket = "${var.solution_name}-tf-backend-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
   tags   = var.tags
 }
 

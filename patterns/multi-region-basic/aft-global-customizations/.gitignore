@@ -239,3 +239,13 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# AFT local
+**/.terraform*
+**/aft-providers.tf
+**/alt-providers.tf
+**/aft-input-auto.tfvars
+**/terraform.tfvars
+
+# Zip files
+**/*.zip

@@ -14,9 +14,10 @@ terraform {
     }
   }
   backend "s3" {
-    bucket     = "{{ bucket }}"
-    key        = "terraform.tfstate"
-    region     = "{{ region }}"
-    kms_key_id = "{{ kms_key_id }}"
+    dynamodb_table = "{{ ddb_table }}"
+    bucket         = "{{ bucket }}"
+    key            = "terraform.tfstate"
+    region         = "{{ region }}"
+    kms_key_id     = "{{ kms_key_id }}"
   }
 }

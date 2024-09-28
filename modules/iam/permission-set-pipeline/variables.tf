@@ -1,46 +1,34 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-variable "app_name" {
-  description = "Solution/Application name prefix."
+variable "solution_name" {
+  description = "Solution name."
   type        = string
   default     = "aws-ps-pipeline"
 }
 
 variable "repository_name" {
-  description = "VCS repository name. For external VCS, inform the full repository path (e.g. GitHubOrganization/repository-name)"
+  description = "VCS repository name. For external VCS, inform the full repository path (e.g. GitHubOrganization/repository-name)."
   type        = string
   default     = "aws-ps-pipeline"
 }
 
-variable "main_branch_name" {
+variable "branch_name" {
   description = "Repository main branch name."
   type        = string
   default     = "main"
 }
 
-variable "test_branch_name" {
-  description = "Repository branch name. If defined, it creates a test pipeline to validate the permission sets ('terraform plan') only"
-  type        = string
-  default     = ""
-}
-
-variable "use_control_tower_events" {
-  description = "Whether to use Control Tower events, to run the pipeline"
-  type        = bool
-  default     = false
-}
-
 variable "use_code_connection" {
   description = "Whether to use a code connection for external VCS (e.g GitHub)"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "code_connection_name" {
   description = "Code connection name"
   type        = string
-  default     = "aws-ps-pipeline"
+  default     = "aws-ps-pipeline-connection"
 }
 
 variable "code_connection_provider" {
@@ -49,7 +37,17 @@ variable "code_connection_provider" {
   default     = "GitHub"
   validation {
     condition     = contains(["GitHub"], var.code_connection_provider)
-    error_message = "The code connection provider is invalid."
+    error_message = "Valid values for code_connection_provider are: GitHub"
+  }
+}
+
+variable "account_lifecyle_events_source" {
+  description = "Define from where to capture account lifecycle events: AFT or Control Tower (CT)."
+  type        = string
+  default     = "AFT"
+  validation {
+    condition     = contains(["AFT", "CT"], var.account_lifecyle_events_source)
+    error_message = "Valid values for account_lifecyle_events_source are: AFT or CT"
   }
 }
 

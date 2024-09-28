@@ -32,15 +32,17 @@ Define the regions you want to use in the `aft-config.j2` file:
 %}
 ```
 
-<!-- 
 Update the `variable.auto.tfvars` file with the corresponding values for:
 
 ### AWS Permission Set Pipeline
 
-### AWS IAM Access Analyzer
--->
+- **use_code_connection:** Inform if you want to use an external VCS provider, such as GitHub, or try the default AWS CodeCommit repository created by the solution. As AWS CodeCommit is no longer available to new customers, make sure your account is allowed to use the service. See more information in [What is AWS CodeCommit?](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)."
+- **repository_name:** Provide a name for the AWS Permission Set pipeline repository. Inform the full repository path for external VCS, such as GitHub (e.g. GitHubOrganization/repository-name)."
+- **branch_name:** Enter the name of the main branch for the repository.
 
-After you have launched the account and deployed the pipeline, you must copy the contents of the [`assets/source/aws-ps-pipeline`](https://github.com/awslabs/aft-blueprints/tree/main/assets/source/aws-ps-pipeline) directory to the repository associated with the pipeline (AWS CodeCommit or GitHub). There you will find the Terraform files used to run the public module ["permission-sets"](https://registry.terraform.io/modules/aws-ia/permission-sets/aws/latest) and apply a sample permission set defined in the `templates` directory.
+After you have launched the account and deployed the pipeline, you must copy the contents of the [`assets/source/aws-ps-pipeline`](https://github.com/awslabs/aft-blueprints/tree/main/assets/source/aws-ps-pipeline) directory to the repository associated with the pipeline (AWS CodeCommit or GitHub). There you will find the Terraform files used to run the public module ["aws-ia/permission-sets/aws"](https://registry.terraform.io/modules/aws-ia/permission-sets/aws/latest) and apply a sample permission set defined in the `templates` directory. The Terraform backend configuration is dynamically provided in the pipeline by using **jinja2**, see the `providers.jinja` file.
+
+If you have chosen to use an external VCS, such as Github, the solution will create an [AWS CodeStar Connections](https://docs.aws.amazon.com/dtconsole/latest/userguide/connections.html) resource, for example `aws-ps-pipeline-connection`. You will need to manually authorize the pending connection by following the [Update a pending connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-update.html) documentation.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

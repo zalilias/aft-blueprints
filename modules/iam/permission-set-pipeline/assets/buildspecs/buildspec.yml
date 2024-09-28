@@ -31,7 +31,7 @@ phases:
       
       - |
         echo "Converting jinja files to terraform..."
-        for f in *.jinja; do jinja2 $f -D region=$REGION -D bucket=$TF_BUCKET -D kms_key_id=$KMS_KEY_ID >> ./$(basename $f .jinja).tf; done
+        for f in *.jinja; do jinja2 $f -D region=$REGION -D ddb_table=$TF_DDB_TABLE -D bucket=$TF_BUCKET -D kms_key_id=$KMS_KEY_ID >> ./$(basename $f .jinja).tf; done
         for f in *.jinja; do echo "\n \n"; echo $(basename $f .jinja).tf; cat $(basename $f .jinja).tf; done
       
       - |
@@ -44,10 +44,10 @@ phases:
       - |
         echo "Terraform plan..."
         /opt/bin/terraform plan -out output.tfplan
-        SOURCE_ARTIFACT_NAME=$(echo $CODEBUILD_SOURCE_VERSION | cut -d "/" -f 3)
       
       - |
         echo "Terraform apply..."
+        SOURCE_ARTIFACT_NAME=$(echo $CODEBUILD_SOURCE_VERSION | cut -d "/" -f 3)
         if [ $SOURCE_ARTIFACT_NAME == 'main' ]; then
             /opt/bin/terraform apply "output.tfplan"
         fi

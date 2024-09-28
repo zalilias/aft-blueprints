@@ -12,7 +12,7 @@
       ],
       "Condition": {
         "ForAnyValue:StringLike": {
-          "kms:ResourceAliases": "alias/${app_name}*"
+          "kms:ResourceAliases": "alias/${solution_name}*"
         }
       }
     },
@@ -36,7 +36,7 @@
         "codebuild:BatchGetBuilds",
         "codebuild:StartBuild"
       ],
-      "Resource": "arn:aws:codebuild:${region}:${account_id}:project/${app_name}-*"
+      "Resource": "arn:aws:codebuild:${region}:${account_id}:project/${solution_name}-*"
     },
     {
       "Action": [
@@ -111,6 +111,25 @@
           ]
         }
       }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "codecommit:GitPull",
+        "codecommit:Get*",
+        "codecommit:List*",
+        "codecommit:Describe*",
+        "codecommit:BatchGet*",
+        "codecommit:UploadArchive"
+      ],
+      "Resource": "arn:aws:codecommit:${region}:${account_id}:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "codestar-connections:UseConnection"
+      ],
+      "Resource": "arn:aws:codestar-connections:${region}:${account_id}:connection/*"
     }
   ]
 }

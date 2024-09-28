@@ -36,11 +36,10 @@ module "aws_ps_pipeline" {
   }
   depends_on = [aws_organizations_delegated_administrator.sso]
 
-  #use_control_tower_events = true
-  repository_name  = "aws-ps-pipeline"
-  main_branch_name = "main"
-  test_branch_name = "dev"
-  tags             = local.tags
+  repository_name     = var.repository_name
+  branch_name         = var.branch_name
+  use_code_connection = var.use_code_connection
+  tags                = local.tags
 }
 
 

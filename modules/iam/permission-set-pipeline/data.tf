@@ -14,21 +14,21 @@ data "local_file" "buildspec" {
 }
 
 data "archive_file" "aft_new_account_forward_event" {
-  count       = var.use_control_tower_events ? 0 : 1
+  count       = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   type        = "zip"
   source_dir  = "${path.module}/lambda/aft-new-account-forward-event"
   output_path = "${path.module}/lambda/aft-new-account-forward-event.zip"
 }
 
 data "aws_ssm_parameter" "aft_sns_notification_topic_arn" {
-  count    = var.use_control_tower_events ? 0 : 1
+  count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   provider = aws.aft-management
 
   name = "/aft/account/aft-management/sns/topic-arn"
 }
 
 data "aws_ssm_parameter" "aft_management_account_id" {
-  count    = var.use_control_tower_events ? 0 : 1
+  count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   provider = aws.aft-management
 
   name = "/aft/account/aft-management/account-id"
