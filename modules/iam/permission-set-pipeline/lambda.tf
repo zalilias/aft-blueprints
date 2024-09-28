@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-resource "aws_lambda_function" "aft_new_account_forward_event" {
+resource "aws_lambda_function" "aft_new_account_event_forwarder" {
   # checkov:skip=CKV_AWS_50:This function doesn't need X-Ray for tracing
   # checkov:skip=CKV_AWS_116:This function doesn't need a Dead Letter Queue(DLQ)
   # checkov:skip=CKV_AWS_117:This is a full serveless function doesn't need VPC
@@ -10,12 +10,12 @@ resource "aws_lambda_function" "aft_new_account_forward_event" {
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   provider = aws.aft-management
 
-  filename                       = "${path.module}/lambda/aft-new-account-forward-event.zip"
-  function_name                  = "aft-new-account-forward-event"
-  description                    = "This Lambda will get the AFT notifications and send the CT event to EventBridge"
+  filename                       = "${path.module}/lambda/aft-new-account-event-forwarder.zip"
+  function_name                  = "aft-new-account-event-forwarder"
+  description                    = "This Lambda will get the AFT notifications and send it to the custom EventBridge bus"
   role                           = aws_iam_role.lambda[0].arn
   handler                        = "index.lambda_handler"
-  source_code_hash               = data.archive_file.aft_new_account_forward_event[0].output_base64sha256
+  source_code_hash               = data.archive_file.aft_new_account_event_forwarder[0].output_base64sha256
   runtime                        = "python3.12"
   reserved_concurrent_executions = 10
   memory_size                    = 128
@@ -28,24 +28,24 @@ resource "aws_lambda_function" "aft_new_account_forward_event" {
   }
 }
 
-resource "aws_lambda_permission" "aft_new_account_forward_event" {
+resource "aws_lambda_permission" "aft_new_account_event_forwarder" {
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   provider = aws.aft-management
 
   statement_id  = "AllowExecutionFromSNS"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.aft_new_account_forward_event[0].function_name
+  function_name = aws_lambda_function.aft_new_account_event_forwarder[0].function_name
   principal     = "sns.amazonaws.com"
   source_arn    = data.aws_ssm_parameter.aft_sns_notification_topic_arn[0].value
 }
 
-resource "aws_sns_topic_subscription" "aft_new_account_forward_event" {
+resource "aws_sns_topic_subscription" "aft_new_account_event_forwarder" {
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   provider = aws.aft-management
 
   topic_arn           = data.aws_ssm_parameter.aft_sns_notification_topic_arn[0].value
   protocol            = "lambda"
-  endpoint            = aws_lambda_function.aft_new_account_forward_event[0].arn
+  endpoint            = aws_lambda_function.aft_new_account_event_forwarder[0].arn
   filter_policy_scope = "MessageBody"
   filter_policy = jsonencode({
     Input = {

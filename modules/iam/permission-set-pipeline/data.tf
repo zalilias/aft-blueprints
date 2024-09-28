@@ -13,11 +13,11 @@ data "local_file" "buildspec" {
   filename = "${path.module}/assets/buildspecs/buildspec.yml"
 }
 
-data "archive_file" "aft_new_account_forward_event" {
+data "archive_file" "aft_new_account_event_forwarder" {
   count       = var.account_lifecyle_events_source == "AFT" ? 1 : 0
   type        = "zip"
-  source_dir  = "${path.module}/lambda/aft-new-account-forward-event"
-  output_path = "${path.module}/lambda/aft-new-account-forward-event.zip"
+  source_dir  = "${path.module}/lambda/aft-new-account-event-forwarder"
+  output_path = "${path.module}/lambda/aft-new-account-event-forwarder.zip"
 }
 
 data "aws_ssm_parameter" "aft_sns_notification_topic_arn" {
