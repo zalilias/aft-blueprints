@@ -30,7 +30,7 @@ resource "aws_cloudwatch_event_target" "pipeline" {
 
 resource "aws_cloudwatch_event_rule" "ct_events" {
   count    = var.account_lifecyle_events_source == "CT" ? 1 : 0
-  provider = aws.org-management
+  provider = aws.event-source-account
 
   name        = "${var.solution_name}-ct-events"
   description = "Capture Control Tower events to send to the permission set pipeline event bus"
@@ -47,7 +47,7 @@ resource "aws_cloudwatch_event_rule" "ct_events" {
 
 resource "aws_cloudwatch_event_target" "ct_events" {
   count    = var.account_lifecyle_events_source == "CT" ? 1 : 0
-  provider = aws.org-management
+  provider = aws.event-source-account
 
   rule     = aws_cloudwatch_event_rule.ct_events[0].name
   role_arn = aws_iam_role.ct_events[0].arn
@@ -56,13 +56,20 @@ resource "aws_cloudwatch_event_target" "ct_events" {
 
 resource "aws_iam_role" "ct_events" {
   count    = var.account_lifecyle_events_source == "CT" ? 1 : 0
-  provider = aws.org-management
+  provider = aws.event-source-account
 
   name_prefix        = "${var.solution_name}-ct-events"
   assume_role_policy = file("${path.module}/assets/trust-policies/events.json")
-  inline_policy {
-    name = "inline_policy"
-    policy = jsonencode({
+}
+
+resource "aws_iam_role_policy" "ct_events" {
+  count    = var.account_lifecyle_events_source == "CT" ? 1 : 0
+  provider = aws.event-source-account
+
+  name = "PutEventsPermission"
+  role = aws_iam_role.ct_events[0].id
+  policy = jsonencode(
+    {
       Version = "2012-10-17"
       Statement = [
         {
@@ -71,6 +78,6 @@ resource "aws_iam_role" "ct_events" {
           Resource = aws_cloudwatch_event_bus.pipeline.arn
         }
       ]
-    })
-  }
+    }
+  )
 }

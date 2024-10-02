@@ -12,7 +12,7 @@ resource "aws_kms_key" "backup" {
   policy              = data.aws_iam_policy_document.kms.json
   tags                = var.tags
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 

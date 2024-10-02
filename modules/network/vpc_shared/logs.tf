@@ -38,25 +38,30 @@ resource "aws_iam_role" "log" {
       ]
     }
   )
-  inline_policy {
-    name = "PutEventsPolicy"
-    policy = jsonencode(
-      {
-        Version = "2012-10-17"
-        Statement = [
-          {
-            Effect = "Allow"
-            Action = [
-              "logs:CreateLogStream",
-              "logs:PutLogEvents",
-              "logs:DescribeLogGroups",
-              "logs:DescribeLogStreams",
-              "logs:CreateLogGroup"
-            ]
-            Resource = [aws_cloudwatch_log_group.log[0].arn]
-          }
-        ]
-    })
-  }
   tags = var.tags
+}
+
+resource "aws_iam_role_policy" "log" {
+  count = var.enable_flow_log ? 1 : 0
+
+  name = "LogsPermission"
+  role = aws_iam_role.log[0].id
+  policy = jsonencode(
+    {
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Effect = "Allow"
+          Action = [
+            "logs:CreateLogStream",
+            "logs:PutLogEvents",
+            "logs:DescribeLogGroups",
+            "logs:DescribeLogStreams",
+            "logs:CreateLogGroup"
+          ]
+          Resource = [aws_cloudwatch_log_group.log[0].arn]
+        }
+      ]
+    }
+  )
 }

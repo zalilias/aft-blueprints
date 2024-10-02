@@ -67,7 +67,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 
 resource "aws_iam_role" "lambda" {
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
-  provider = aws.aft-management
+  provider = aws.event-source-account
 
   name                  = "${var.solution_name}-lambda-role"
   assume_role_policy    = file("${path.module}/assets/trust-policies/lambda.json")
@@ -76,7 +76,7 @@ resource "aws_iam_role" "lambda" {
 
 resource "aws_iam_role_policy" "lambda_policy" {
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
-  provider = aws.aft-management
+  provider = aws.event-source-account
 
   name = "${var.solution_name}-lambda-policy"
   role = aws_iam_role.lambda[0].id

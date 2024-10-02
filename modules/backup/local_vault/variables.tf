@@ -18,6 +18,22 @@ variable "create_backup_roles" {
   default     = false
 }
 
+variable "enable_backup_notifications" {
+  type        = bool
+  description = "Whether enable backup notifications events or not."
+  default     = true
+}
+
+variable "backup_notification_events" {
+  type        = list(string)
+  description = "List with backup notification events. See https://docs.aws.amazon.com/aws-backup/latest/devguide/backup-notifications.html for more."
+  default = [
+    "COPY_JOB_FAILED",
+    "BACKUP_JOB_FAILED",
+    "S3_BACKUP_OBJECT_FAILED"
+  ]
+}
+
 variable "tags" {
   type    = map(string)
   default = {}

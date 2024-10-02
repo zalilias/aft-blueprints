@@ -46,11 +46,12 @@ module "aws_backup_primary" {
   }
   depends_on = [aws_organizations_delegated_administrator.backup]
 
-  backup_vault_name        = "central-vault"
-  enable_backup_vault_lock = true
+  backup_vault_name        = var.backup_vault_name
+  enable_backup_vault_lock = var.enable_backup_vault_lock
   backup_vault_lock_config = {
-    min_retention_days = 7
-    max_retention_days = 365
+    min_retention_days  = var.backup_vault_lock_min_retention_days
+    max_retention_days  = var.backup_vault_lock_max_retention_days
+    changeable_for_days = var.backup_vault_lock_changeable_for_days
   }
   create_backup_roles = true
   tags                = local.tags
@@ -102,6 +103,10 @@ module "aws_backup_report" {
     module.aws_backup_primary,
   ]
 
+  report_s3_bucket_name             = "aws-backup-reports-${data.aws_caller_identity.current.account_id}-${data.aws_region.primary.name}"
+  enable_backup_jobs_report         = var.enable_backup_jobs_report
+  enable_backup_copy_jobs_report    = var.enable_backup_copy_jobs_report
+  enable_backup_restore_jobs_report = var.enable_backup_restore_jobs_report
   report_regions = [
     data.aws_region.primary.name,
   ]

@@ -23,21 +23,6 @@ variable "backup_vault_lock_config" {
   default     = {}
 }
 
-variable "enable_backup_notifications" {
-  type        = bool
-  description = "Whether enable backup notifications events"
-  default     = true
-}
-
-variable "backup_notification_events" {
-  type        = list(string)
-  description = "List with backup notification events. See https://docs.aws.amazon.com/aws-backup/latest/devguide/backup-notifications.html for more."
-  default = [
-    "COPY_JOB_FAILED",
-    "S3_BACKUP_OBJECT_FAILED"
-  ]
-}
-
 variable "create_backup_roles" {
   type        = bool
   description = "Whether create backup service roles"

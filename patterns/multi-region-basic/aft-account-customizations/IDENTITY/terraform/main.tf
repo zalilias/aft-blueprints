@@ -31,17 +31,16 @@ resource "aws_organizations_delegated_administrator" "sso" {
 module "aws_ps_pipeline" {
   source = "../../common/modules/iam/permission-set-pipeline"
   providers = {
-    aws.org-management = aws.org-management
-    aws.aft-management = aws.aft-management
+    aws.event-source-account = aws.aft-management
   }
   depends_on = [aws_organizations_delegated_administrator.sso]
 
-  repository_name     = var.repository_name
-  branch_name         = var.branch_name
-  use_code_connection = var.use_code_connection
-  tags                = local.tags
+  repository_name                = var.repository_name
+  branch_name                    = var.branch_name
+  use_code_connection            = var.use_code_connection
+  account_lifecyle_events_source = "AFT"
+  tags                           = local.tags
 }
-
 
 ########################################
 #######    IAM Access Analyzer   #######

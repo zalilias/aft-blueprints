@@ -6,13 +6,11 @@ resource "aws_backup_vault" "backup" {
   kms_key_arn = aws_kms_key.backup.arn
   tags        = var.tags
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
 resource "aws_backup_vault_policy" "backup" {
-  count = var.enable_backup_notifications ? 1 : 0
-
   backup_vault_name = aws_backup_vault.backup.name
   policy            = data.aws_iam_policy_document.vault.json
 }
@@ -47,13 +45,5 @@ resource "aws_backup_vault_lock_configuration" "backup" {
   backup_vault_name   = aws_backup_vault.backup.name
   min_retention_days  = lookup(var.backup_vault_lock_config, "min_retention_days", null)
   max_retention_days  = lookup(var.backup_vault_lock_config, "max_retention_days", null)
-  changeable_for_days = lookup(var.backup_vault_lock_config, "changeable_for_days", null)
-}
-
-resource "aws_backup_vault_notifications" "backup" {
-  count = var.enable_backup_notifications ? 1 : 0
-
-  backup_vault_name   = aws_backup_vault.backup.name
-  sns_topic_arn       = aws_sns_topic.notify[0].arn
-  backup_vault_events = var.backup_notification_events
+  changeable_for_days = local.changeable_for_days == 0 ? null : local.changeable_for_days
 }

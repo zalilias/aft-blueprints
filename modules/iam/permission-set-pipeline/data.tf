@@ -22,14 +22,14 @@ data "archive_file" "aft_new_account_event_forwarder" {
 
 data "aws_ssm_parameter" "aft_sns_notification_topic_arn" {
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
-  provider = aws.aft-management
+  provider = aws.event-source-account
 
   name = "/aft/account/aft-management/sns/topic-arn"
 }
 
 data "aws_ssm_parameter" "aft_management_account_id" {
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
-  provider = aws.aft-management
+  provider = aws.event-source-account
 
   name = "/aft/account/aft-management/account-id"
 }

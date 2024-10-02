@@ -1,4 +1,4 @@
-# Identity Management Customization - Single Region Basic
+# Identity Management Customization - Multi Region Advanced
 
 This Terraform code is designed to set up an identity management pipeline for AWS IAM Identity Center, providing an automated and dynamic way to manage Permission Sets in a multi-account environment. IAM Access Analyzer is also set up to perform external access analysis at the organization level.
 
@@ -55,9 +55,9 @@ If you have chosen to use an external VCS, such as Github, the solution will cre
 
 | Name | Version |
 |------|---------|
-| aws | 5.44.0 |
-| aws.aft-management | 5.44.0 |
-| aws.org-management | 5.44.0 |
+| aws | 5.69.0 |
+| aws.aft-management | 5.69.0 |
+| aws.org-management | 5.69.0 |
 
 ## Modules
 
@@ -66,6 +66,7 @@ If you have chosen to use an external VCS, such as Github, the solution will cre
 | aft\_custom\_fields | ../../common/modules/custom_fields | n/a |
 | aws\_ps\_pipeline | ../../common/modules/iam/permission-set-pipeline | n/a |
 | primary\_iam\_access\_analyzer | ../../common/modules/iam/access-analyzer | n/a |
+| secondary\_iam\_access\_analyzer | ../../common/modules/iam/access-analyzer | n/a |
 
 ## Resources
 
@@ -79,7 +80,11 @@ If you have chosen to use an external VCS, such as Github, the solution will cre
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| branch\_name | Repository main branch name for AWS Permission Set pipeline. | `string` | `"main"` | no |
+| repository\_name | Repository name for AWS Permission Set pipeline. For external VCS, inform the full repository path (e.g. GitHubOrganization/repository-name). | `string` | `"myorg/aws-ps-pipeline"` | no |
+| use\_code\_connection | "Whether to use a code connection for external VCS (e.g. GitHub).  If false, the code will try to create a CodeCommit repository.  As AWS CodeCommit is no longer available to new customers, make sure your account has access to the service." | `bool` | `true` | no |
 
 ## Outputs
 

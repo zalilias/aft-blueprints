@@ -98,19 +98,17 @@ aws_availability_zones = {
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | >=1.5.0 |
+No requirements.
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 5.44.0 |
-| aws.aft-management | 5.44.0 |
-| aws.org-management | 5.44.0 |
-| aws.primary | 5.44.0 |
-| aws.secondary | 5.44.0 |
+| aws | n/a |
+| aws.aft-management | n/a |
+| aws.org-management | n/a |
+| aws.primary | n/a |
+| aws.secondary | n/a |
 
 ## Modules
 

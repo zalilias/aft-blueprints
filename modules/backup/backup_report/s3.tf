@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 resource "aws_s3_bucket" "report" {
-  bucket = "aws-backup-reports-${data.aws_caller_identity.current.account_id}"
+  bucket = var.report_s3_bucket_name == "" ? "aws-backup-reports-${data.aws_caller_identity.current.account_id}" : var.report_s3_bucket_name
   tags   = var.tags
 }
 

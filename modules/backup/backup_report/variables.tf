@@ -1,6 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+variable "report_s3_bucket_name" {
+  type        = string
+  description = "S3 Bucket name for AWS Backup reports"
+  default     = ""
+}
+
 variable "report_regions" {
   type        = list(string)
   description = "List of regions to report on"

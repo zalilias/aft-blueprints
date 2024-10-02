@@ -27,15 +27,33 @@ Define the region you want to use in the `aft-config.j2` file:
 %}
 ```
 
-<!-- 
 Update the `variable.auto.tfvars` file with the corresponding values for:
 
 ### AWS Backup Vault
 
-### AWS Backup Opt-In Services 
+- Enter the central backup vault name and the configuration vault lock feature, if enabled.
+
+Example:
+
+```terraform
+backup_vault_name                     = "central-vault"
+enable_backup_vault_lock              = true
+backup_vault_lock_min_retention_days  = 7
+backup_vault_lock_max_retention_days  = 365
+backup_vault_lock_changeable_for_days = 0
+```
 
 ### AWS Backup Report
--->
+
+- Enter the options to allow each type of backup report.
+
+Example:
+
+```terraform
+enable_backup_jobs_report         = true
+enable_backup_copy_jobs_report    = true
+enable_backup_restore_jobs_report = true
+```
 
 This customizations enables the AWS Backup cross-account management feature. However, if you want to manage backup policies through AWS Organizations in a centralized place, we recommend you to delegate AWS Backup policies to the backup account after launching the it and applying the customization. Check out the [Managing AWS Backup resources across multiple AWS accounts](https://docs.aws.amazon.com/aws-backup/latest/devguide/manage-cross-account.html) documentation, more specifically in the section **Delegate AWS Backup policies through AWS Organizations**.
 

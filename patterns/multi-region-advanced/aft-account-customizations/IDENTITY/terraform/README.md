@@ -55,21 +55,24 @@ If you have chosen to use an external VCS, such as Github, the solution will cre
 
 | Name | Version |
 |------|---------|
-| aws | 5.44.0 |
-| aws.aft-management | 5.44.0 |
-| aws.org-management | 5.44.0 |
+| aws | 5.69.0 |
+| aws.aft-management | 5.69.0 |
+| aws.org-management | 5.69.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | aft\_custom\_fields | ../../common/modules/custom_fields | n/a |
-| aws\_ps\_pipeline | ./modules/aws-ps-pipeline | n/a |
+| aws\_ps\_pipeline | ../../common/modules/iam/permission-set-pipeline | n/a |
+| primary\_iam\_access\_analyzer | ../../common/modules/iam/access-analyzer | n/a |
+| secondary\_iam\_access\_analyzer | ../../common/modules/iam/access-analyzer | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_organizations_delegated_administrator.iam_access_analyzer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_delegated_administrator) | resource |
 | [aws_organizations_delegated_administrator.sso](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_delegated_administrator) | resource |
 | [aws_ssm_parameter.account_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
@@ -77,7 +80,11 @@ If you have chosen to use an external VCS, such as Github, the solution will cre
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| branch\_name | Repository main branch name for AWS Permission Set pipeline. | `string` | `"main"` | no |
+| repository\_name | Repository name for AWS Permission Set pipeline. For external VCS, inform the full repository path (e.g. GitHubOrganization/repository-name). | `string` | `"myorg/aws-ps-pipeline"` | no |
+| use\_code\_connection | "Whether to use a code connection for external VCS (e.g. GitHub).  If false, the code will try to create a CodeCommit repository.  As AWS CodeCommit is no longer available to new customers, make sure your account has access to the service." | `bool` | `true` | no |
 
 ## Outputs
 

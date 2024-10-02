@@ -8,7 +8,7 @@ resource "aws_lambda_function" "aft_new_account_event_forwarder" {
   # checkov:skip=CKV_AWS_173:This parameter is not a SecureString and there is no need to encrypt
   # checkov:skip=CKV_AWS_272:This function doesn't need to validate code-signing
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
-  provider = aws.aft-management
+  provider = aws.event-source-account
 
   filename                       = "${path.module}/lambda/aft-new-account-event-forwarder.zip"
   function_name                  = "aft-new-account-event-forwarder"
@@ -30,7 +30,7 @@ resource "aws_lambda_function" "aft_new_account_event_forwarder" {
 
 resource "aws_lambda_permission" "aft_new_account_event_forwarder" {
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
-  provider = aws.aft-management
+  provider = aws.event-source-account
 
   statement_id  = "AllowExecutionFromSNS"
   action        = "lambda:InvokeFunction"
@@ -41,7 +41,7 @@ resource "aws_lambda_permission" "aft_new_account_event_forwarder" {
 
 resource "aws_sns_topic_subscription" "aft_new_account_event_forwarder" {
   count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
-  provider = aws.aft-management
+  provider = aws.event-source-account
 
   topic_arn           = data.aws_ssm_parameter.aft_sns_notification_topic_arn[0].value
   protocol            = "lambda"

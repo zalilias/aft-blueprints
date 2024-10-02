@@ -6,7 +6,7 @@ resource "aws_backup_vault" "backup" {
   kms_key_arn = aws_kms_key.backup.arn
   tags        = var.tags
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
@@ -27,4 +27,12 @@ data "aws_iam_policy_document" "vault" {
       identifiers = ["arn:aws:iam::${var.backup_account_id}:root"]
     }
   }
+}
+
+resource "aws_backup_vault_notifications" "backup" {
+  count = var.enable_backup_notifications ? 1 : 0
+
+  backup_vault_name   = aws_backup_vault.backup.name
+  sns_topic_arn       = aws_sns_topic.notify[0].arn
+  backup_vault_events = var.backup_notification_events
 }

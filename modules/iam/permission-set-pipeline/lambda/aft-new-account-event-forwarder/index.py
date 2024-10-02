@@ -38,7 +38,7 @@ def lambda_handler(event, context):
             response = client.put_events(
                 Entries=[
                     {
-                        "Source": "aft-new-account-forward-event",
+                        "Source": "aft-new-account-event-forwarder",
                         "DetailType": message["Input"]["control_tower_event"][
                             "detail-type"
                         ],
