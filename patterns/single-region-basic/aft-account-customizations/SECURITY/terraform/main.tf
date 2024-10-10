@@ -24,12 +24,6 @@ resource "aws_guardduty_organization_admin_account" "primary" {
   admin_account_id = data.aws_caller_identity.current.account_id
 }
 
-resource "aws_guardduty_organization_admin_account" "secondary" {
-  provider = aws.org-management-secondary
-
-  admin_account_id = data.aws_caller_identity.current.account_id
-}
-
 ########################################
 #######         GuardDuty        #######
 ########################################
@@ -38,16 +32,6 @@ module "primary_guardduty" {
   depends_on = [aws_guardduty_organization_admin_account.primary]
   providers = {
     aws = aws.primary
-  }
-
-  auto_enable_organization_members = var.guardduty_auto_enable_organization_members
-}
-
-module "secondary_guardduty" {
-  source     = "../../common/modules/security/guardduty"
-  depends_on = [aws_guardduty_organization_admin_account.secondary]
-  providers = {
-    aws = aws.secondary
   }
 
   auto_enable_organization_members = var.guardduty_auto_enable_organization_members
@@ -65,9 +49,7 @@ resource "aws_securityhub_organization_admin_account" "securityhub" {
   provider = aws.org-management-primary
   depends_on = [
     aws_securityhub_account.primary,
-    aws_securityhub_account.secondary,
     aws_securityhub_account.primary_org_management,
-    aws_securityhub_account.secondary_org_management
   ]
 
   admin_account_id = data.aws_caller_identity.current.account_id
@@ -79,21 +61,9 @@ resource "aws_securityhub_account" "primary" {
   control_finding_generator = var.securityhub_control_finding_generator
 }
 
-resource "aws_securityhub_account" "secondary" {
-  provider = aws.secondary
-
-  control_finding_generator = var.securityhub_control_finding_generator
-}
-
 # Enabling securityhub in the organizations management account, since it's not enabled by default
 resource "aws_securityhub_account" "primary_org_management" {
   provider = aws.org-management-primary
-
-  control_finding_generator = var.securityhub_control_finding_generator
-}
-
-resource "aws_securityhub_account" "secondary_org_management" {
-  provider = aws.org-management-secondary
 
   control_finding_generator = var.securityhub_control_finding_generator
 }
@@ -107,9 +77,6 @@ module "securityhub" {
 
   configuration_type = "CENTRAL"
   linking_mode       = "SPECIFIED_REGIONS"
-  specified_regions = [
-    data.aws_region.secondary.name
-  ]
 }
 
 
