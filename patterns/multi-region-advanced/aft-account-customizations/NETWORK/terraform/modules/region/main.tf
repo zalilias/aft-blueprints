@@ -59,3 +59,15 @@ module "vpc_endpoints" {
   ]
   tags = var.tags
 }
+
+module "vpce" {
+  source = "../../../../common/modules/network/vpce"
+
+  vpc_id       = module.vpc_endpoints.vpc_id
+  vpc_cidr     = module.vpc_endpoints.vpc_cidr_block
+  allowed_cidr = var.region_cidr_blocks
+  interface_endpoints = {
+    subnet_ids = module.vpc_endpoints.subnets["vpce"]
+    services   = var.vpc_endpoint_services
+  }
+}
