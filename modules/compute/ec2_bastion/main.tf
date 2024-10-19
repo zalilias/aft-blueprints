@@ -92,15 +92,15 @@ resource "aws_iam_role" "bastion_role" {
       ]
     }
   )
-  managed_policy_arns = [
-    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  ]
   tags = var.tags
+}
+
+resource "aws_iam_role_policy_attachments_exclusive" "bastion_role" {
+  role_name   = aws_iam_role.bastion_role.name
+  policy_arns = ["arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"]
 }
 
 resource "aws_iam_instance_profile" "bastion_instance_profile" {
   name_prefix = "ec2-${var.identifier}-bastion-instance-profile-"
   role        = aws_iam_role.bastion_role.name
 }
-
-

@@ -109,7 +109,7 @@ variable "aws_vpc_endpoint_services" {
   "List with the VPC endpoint services to be centralized in the network account."
   Example:
     ```
-    [
+    aws_vpc_endpoint_services = [
       "ec2",
       "ec2messages",
       "ssm",
@@ -126,6 +126,7 @@ variable "aws_vpn_info" {
   "Object with VPN information to be used in AWS regions."
   Example:
     ```
+    aws_vpn_info = {
       primary_region = {
         customer_gateway_name = "my_cgw"
         customer_gateway_ip_address = "1.1.1.1"
@@ -153,7 +154,7 @@ variable "aws_dx_info" {
   "Object with Direct Connect information to be used in AWS regions."
   Example:
     ```
-    {
+    aws_dx_info = {
       gateway_name = "aws-dx-gateway"
       bgp_asn      = "64550"
     }

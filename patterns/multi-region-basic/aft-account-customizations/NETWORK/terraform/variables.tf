@@ -109,12 +109,12 @@ variable "aws_vpc_endpoint_services" {
   "List with the VPC endpoint services to be centralized in the network account."
   Example:
     ```
-  [
-    "ec2",
-    "ec2messages",
-    "ssm",
-    "ssmmessages"
-  ]
+    aws_vpc_endpoint_services = [
+      "ec2",
+      "ec2messages",
+      "ssm",
+      "ssmmessages"
+    ]
     ```
 EOF
   type        = list(string)

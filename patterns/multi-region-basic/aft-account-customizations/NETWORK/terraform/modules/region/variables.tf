@@ -11,23 +11,6 @@ variable "region_cidr_blocks" {
   type        = list(string)
 }
 
-variable "vpc_endpoint_services" {
-  description = <<-EOF
-  "List with the VPC endpoint services to be centralized in the network account."
-  Example:
-    ```
-  [
-    "ec2",
-    "ec2messages",
-    "ssm",
-    "ssmmessages"
-  ]
-    ```
-EOF
-  type        = list(string)
-  default     = []
-}
-
 variable "availability_zones" {
   description = <<-EOF
   "Map of availability zones allowed to be used in this region."
@@ -47,6 +30,23 @@ EOF
     )
     error_message = "You must specify a list with valid availability zones allowed in this region, such as az1, az2, az3 and az4."
   }
+}
+
+variable "vpc_endpoint_services" {
+  description = <<-EOF
+  "List with the VPC endpoint services to be centralized in the network account."
+  Example:
+    ```
+    vpc_endpoint_services = [
+      "ec2",
+      "ec2messages",
+      "ssm",
+      "ssmmessages"
+    ]
+    ```
+EOF
+  type        = list(string)
+  default     = []
 }
 
 variable "tgw_amazon_side_asn" {
