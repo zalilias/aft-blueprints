@@ -50,7 +50,7 @@ resource "aws_vpc_endpoint" "interface" {
   for_each = toset(var.interface_endpoints.services)
 
   vpc_id              = var.vpc_id
-  service_name        = strcontains(each.value, ".") ? each.value : "com.amazonaws.${data.aws_region.current.name}.${each.value}"
+  service_name        = length(try(regex("\\..*\\.", each.value), [])) > 0 ? each.value : "com.amazonaws.${data.aws_region.current.name}.${each.value}"
   vpc_endpoint_type   = "Interface"
   security_group_ids  = local.create_security_group ? [aws_security_group.endpoints[0].id] : [var.security_group_id]
   subnet_ids          = var.interface_endpoints.subnet_ids
