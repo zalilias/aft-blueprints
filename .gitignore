@@ -254,6 +254,9 @@ $RECYCLE.BIN/
 **/aft-input-auto.tfvars
 **/terraform.tfvars
 
+# Patterns local
+patterns/**/modules
+
 # Zip files
 **/*.zip
 

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 resource "aws_security_group" "endpoints" {
-  count = length(var.interface_endpoints.services) > 0 ? 1 : 0
+  count = local.create_security_group ? 1 : 0
 
   name_prefix = "${var.vpc_name}-endpoints-sgp-"
   description = "Allow endpoints communication"
@@ -20,7 +20,7 @@ resource "aws_security_group" "endpoints" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "vpc" {
-  count = length(var.interface_endpoints.services) > 0 ? 1 : 0
+  count = local.create_security_group ? 1 : 0
 
   security_group_id = aws_security_group.endpoints[0].id
   description       = "Allow VPC ingress trafic"
@@ -29,7 +29,7 @@ resource "aws_vpc_security_group_ingress_rule" "vpc" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "endpoints" {
-  for_each = toset(var.allowed_cidr)
+  for_each = local.create_security_group ? toset(var.allowed_cidr) : []
 
   security_group_id = aws_security_group.endpoints[0].id
   description       = "Allow additional ingress trafic"
@@ -38,7 +38,7 @@ resource "aws_vpc_security_group_ingress_rule" "endpoints" {
 }
 
 resource "aws_vpc_security_group_egress_rule" "endpoints" {
-  count = length(var.interface_endpoints.services) > 0 ? 1 : 0
+  count = local.create_security_group ? 1 : 0
 
   security_group_id = aws_security_group.endpoints[0].id
   description       = "Allow ALL egress trafic"
@@ -50,12 +50,12 @@ resource "aws_vpc_endpoint" "interface" {
   for_each = toset(var.interface_endpoints.services)
 
   vpc_id              = var.vpc_id
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.${each.value}"
+  service_name        = strcontains(each.value, ".") ? each.value : "com.amazonaws.${data.aws_region.current.name}.${each.value}"
   vpc_endpoint_type   = "Interface"
-  security_group_ids  = [aws_security_group.endpoints[0].id]
+  security_group_ids  = local.create_security_group ? [aws_security_group.endpoints[0].id] : [var.security_group_id]
   subnet_ids          = var.interface_endpoints.subnet_ids
-  private_dns_enabled = each.value == "s3" ? false : true
-  policy = each.value == "ssm" ? jsonencode({
+  private_dns_enabled = var.private_dns_enabled
+  policy = each.value == "ssm" || each.value == "com.amazonaws.${data.aws_region.current.name}.ssm" ? jsonencode({
     Version : "2012-10-17",
     Statement : [
       {
@@ -74,7 +74,7 @@ resource "aws_vpc_endpoint" "interface" {
     ]
   }) : null
   tags = merge(
-    { "Name" = "${var.vpc_name}-${each.value}-endpoint" },
+    { "Name" = "${var.vpc_name}-${replace(each.value, ".", "-")}-endpoint" },
     var.tags
   )
   timeouts {

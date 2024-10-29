@@ -1,32 +1,43 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-variable "tags" {
-  type    = map(string)
-  default = {}
-}
-
 variable "vpc_id" {
-  type = string
-}
-
-variable "vpc_cidr" {
-  type = string
+  description = "The ID of the VPC in which the endpoint will be used."
+  type        = string
 }
 
 variable "vpc_name" {
-  type    = string
-  default = "vpc"
+  description = "The name of the VPC in which the endpoint will be used."
+  type        = string
+  default     = "vpc"
+}
+
+variable "vpc_cidr" {
+  description = "The CIDR of the VPC in which the endpoint will be used. This CIDR will be added to the interface endpoints security group created by the module (when security_group_id is not informed)."
+  type        = string
+  default     = null
 }
 
 variable "allowed_cidr" {
-  description = "Additional CIDRs to be added in the interface endpoints security group."
+  description = "Additional CIDRs to be added in the interface endpoints security group created by the module (when security_group_id is not informed)."
   type        = list(string)
   default     = []
 }
 
+variable "security_group_id" {
+  description = "The ID of the security group to be added in the interface endpoints."
+  type        = string
+  default     = null
+}
+
+variable "private_dns_enabled" {
+  description = "Whether or not to enable private DNS."
+  type        = bool
+  default     = true
+}
+
 variable "interface_endpoints" {
-  description = "A list of subnets and interface endpoints"
+  description = "A list of subnet IDs and interface endpoint service names. For service names use com.amazonaws.<region>.<service> format, or just <service> (e.g. com.amazonaws.us-east-1.ssm or ssm)."
   type = object({
     subnet_ids = list(string)
     services   = list(string)
@@ -50,8 +61,14 @@ variable "gateway_endpoints" {
   validation {
     condition = (
       length(var.gateway_endpoints.services) == 0 ||
-      alltrue([for service in var.gateway_endpoints.services : contains(["s3", "dynamodb"], service)])
+      alltrue([for service in var.gateway_endpoints.services : contains(["s3", "s3express", "dynamodb"], service)])
     )
     error_message = "The value of services is invalid, it must be one of the follwing: s3 or dynamodb."
   }
+}
+
+variable "tags" {
+  description = "Tags to be applied to all resources."
+  type        = map(string)
+  default     = {}
 }

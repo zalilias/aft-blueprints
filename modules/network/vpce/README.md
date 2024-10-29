@@ -23,20 +23,28 @@ No modules.
 | [aws_security_group.endpoints](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_vpc_endpoint.gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint) | resource |
 | [aws_vpc_endpoint.interface](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint) | resource |
+| [aws_vpc_security_group_egress_rule.endpoints](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule) | resource |
+| [aws_vpc_security_group_ingress_rule.endpoints](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
+| [aws_vpc_security_group_ingress_rule.vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| allowed\_cidr | n/a | `list(string)` | n/a | yes |
+| allowed\_cidr | Additional CIDRs to be added in the interface endpoints security group created by the module (when security\_group\_id is not informed). | `list(string)` | `[]` | no |
 | gateway\_endpoints | A list of route tables and gateway endpoints | ```object({ route_table_ids = list(string) services = list(string) })``` | ```{ "route_table_ids": [], "services": [] }``` | no |
-| interface\_endpoints | A list of subnets and interface endpoints | ```object({ subnet_ids = list(string) services = list(string) })``` | ```{ "services": [], "subnet_ids": [] }``` | no |
-| tags | n/a | `map(string)` | `{}` | no |
-| vpc\_id | n/a | `string` | n/a | yes |
-| vpc\_name | n/a | `string` | `""` | no |
+| interface\_endpoints | A list of subnet IDs and interface endpoint service names. For service names use com.amazonaws.<region>.<service> format, or just <service> (e.g. com.amazonaws.us-east-1.ssm or ssm). | ```object({ subnet_ids = list(string) services = list(string) })``` | ```{ "services": [], "subnet_ids": [] }``` | no |
+| private\_dns\_enabled | Whether or not to enable private DNS. | `bool` | `true` | no |
+| security\_group\_id | The ID of the security group to be added in the interface endpoints. | `string` | `null` | no |
+| tags | Tags to be applied to all resources. | `map(string)` | `{}` | no |
+| vpc\_cidr | The CIDR of the VPC in which the endpoint will be used. This CIDR will be added to the interface endpoints security group created by the module (when security\_group\_id is not informed). | `string` | `null` | no |
+| vpc\_id | The ID of the VPC in which the endpoint will be used. | `string` | n/a | yes |
+| vpc\_name | The name of the VPC in which the endpoint will be used. | `string` | `"vpc"` | no |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| security\_group\_id | The ID of the security group |
 <!-- END_TF_DOCS -->
