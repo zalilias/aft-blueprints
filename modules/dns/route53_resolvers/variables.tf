@@ -25,16 +25,6 @@ variable "rfc1918_cidr" {
   default     = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
 }
 
-variable "rules" {
-  type = map(object(
-    {
-      domain_name      = string
-      external_dns_ips = optional(list(string), [])
-    }
-  ))
-  description = "The domain_name and external_dns_ips (if applicable) for resolver rule to forward DNS requests."
-}
-
 variable "tags" {
   type        = map(any)
   description = "Define additional tags to be used by resources."

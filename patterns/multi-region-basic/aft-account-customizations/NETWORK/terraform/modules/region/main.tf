@@ -70,8 +70,4 @@ module "vpce" {
     subnet_ids = module.vpc_endpoints.subnets["private"]
     services   = var.vpc_endpoint_services
   }
-  gateway_endpoints = {
-    route_table_ids = module.vpc_endpoints.route_tables["private"]
-    services        = ["s3"]
-  }
 }

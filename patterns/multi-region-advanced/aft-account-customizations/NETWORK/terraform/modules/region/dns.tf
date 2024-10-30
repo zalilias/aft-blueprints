@@ -6,6 +6,15 @@ module "route53_resolvers" {
 
   vpc_id                      = module.vpc_endpoints.vpc_id
   route53_resolver_subnet_ids = module.vpc_endpoints.subnets["private"]
-  rules                       = local.dns_resolver_rules
   tags                        = var.tags
 }
+
+module "route53_resolver_rules" {
+  source = "../../../../common/modules/dns/route53_resolver_rules"
+
+  rules                = local.dns_resolver_rules
+  resolver_endpoint_id = module.route53_resolvers.outbound_endpoint_id
+  resolver_target_ips  = module.route53_resolvers.inbound_endpoint_ips
+  tags                 = var.tags
+}
+

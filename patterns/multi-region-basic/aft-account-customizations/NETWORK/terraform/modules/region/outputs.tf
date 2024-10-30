@@ -25,3 +25,23 @@ output "tgw_route_table_id" {
   description = "Transit Gateway Id"
   value       = module.tgw.route_table_id
 }
+
+output "route53_resolver_inbound_endpoint_id" {
+  description = "The ID of the inbound endpoint"
+  value       = module.route53_resolvers.inbound_endpoint_id
+}
+
+output "route53_resolver_inbound_endpoint_ips" {
+  description = "The IP addresses of the inbound endpoint"
+  value       = module.route53_resolvers.inbound_endpoint_ips
+}
+
+output "route53_resolver_outbound_endpoint_id" {
+  description = "The ID of the outbound endpoint"
+  value       = module.route53_resolvers.outbound_endpoint_id
+}
+
+output "route53_resolver_outbound_endpoint_ips" {
+  description = "The IP addresses of the outbound endpoint"
+  value       = module.route53_resolvers.outbound_endpoint_ips
+}
