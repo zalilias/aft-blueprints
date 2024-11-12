@@ -35,11 +35,11 @@ module "aws_ps_pipeline" {
   }
   depends_on = [aws_organizations_delegated_administrator.sso]
 
-  repository_name                = var.repository_name
-  branch_name                    = var.branch_name
-  use_code_connection            = var.use_code_connection
-  account_lifecyle_events_source = "AFT"
-  tags                           = local.tags
+  repository_name                 = var.repository_name
+  branch_name                     = var.branch_name
+  use_code_connection             = var.use_code_connection
+  account_lifecycle_events_source = "AFT"
+  tags                            = local.tags
 }
 
 

@@ -41,13 +41,38 @@ variable "code_connection_provider" {
   }
 }
 
-variable "account_lifecyle_events_source" {
-  description = "Define from where to capture account lifecycle events: AFT or Control Tower (CT)."
+variable "account_lifecycle_events_source" {
+  description = <<-EOF
+    Define from where to capture account lifecycle events: AFT, Control Tower (CT) or None.
+    Based on this choice, you also must change the provider for the source account (aws.event-source-account).
+    For exemple:
+
+      - For AFT as the source account, inform the provider with access to AFT management account:
+        ```
+          providers = {
+            aws.event-source-account = aws.aft-management
+          }
+        ```
+
+      - For CT as the source account, inform the provider with access to CT management account:
+        ```
+          providers = {
+            aws.event-source-account = aws.org-management
+          }
+        ```
+
+      - If you don't want to use account lifecyle events to trigger the pipeline, select None and inform the aws default provider:
+        ```
+          providers = {
+            aws.event-source-account = aws
+          }
+    ```
+  EOF
   type        = string
-  default     = "AFT"
+  default     = "None"
   validation {
-    condition     = contains(["AFT", "CT"], var.account_lifecyle_events_source)
-    error_message = "Valid values for account_lifecyle_events_source are: AFT or CT"
+    condition     = contains(["AFT", "CT", "None"], var.account_lifecycle_events_source)
+    error_message = "Valid values for account_lifecycle_events_source are: AFT, CT or None"
   }
 }
 

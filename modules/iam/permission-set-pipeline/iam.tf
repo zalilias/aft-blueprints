@@ -66,7 +66,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 }
 
 resource "aws_iam_role" "lambda" {
-  count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
+  count    = var.account_lifecycle_events_source == "AFT" ? 1 : 0
   provider = aws.event-source-account
 
   name                  = "${var.solution_name}-lambda-role"
@@ -75,7 +75,7 @@ resource "aws_iam_role" "lambda" {
 }
 
 resource "aws_iam_role_policy" "lambda_policy" {
-  count    = var.account_lifecyle_events_source == "AFT" ? 1 : 0
+  count    = var.account_lifecycle_events_source == "AFT" ? 1 : 0
   provider = aws.event-source-account
 
   name = "${var.solution_name}-lambda-policy"
@@ -83,6 +83,6 @@ resource "aws_iam_role_policy" "lambda_policy" {
   policy = templatefile("${path.module}/assets/role-policies/lambda_role_policy.json", {
     region        = data.aws_region.current.name
     account_id    = data.aws_ssm_parameter.aft_management_account_id[0].value
-    event_bus_arn = aws_cloudwatch_event_bus.pipeline.arn
+    event_bus_arn = aws_cloudwatch_event_bus.pipeline[0].arn
   })
 }
