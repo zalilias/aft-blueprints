@@ -17,7 +17,7 @@ resource "aws_lambda_function" "aft_new_account_event_forwarder" {
   handler                        = "index.lambda_handler"
   source_code_hash               = data.archive_file.aft_new_account_event_forwarder[0].output_base64sha256
   runtime                        = "python3.12"
-  reserved_concurrent_executions = 10
+  reserved_concurrent_executions = 1
   memory_size                    = 128
   timeout                        = 120
   layers                         = []
