@@ -19,25 +19,39 @@ variable "branch_name" {
   default     = "main"
 }
 
-variable "use_code_connection" {
-  description = "Whether to use a code connection for external VCS (e.g GitHub)"
-  type        = bool
-  default     = true
-}
-
-variable "code_connection_name" {
-  description = "Code connection name"
+variable "vcs_provider" {
+  description = "Customer VCS Provider - valid inputs are codecommit, github, or githubenterprise"
   type        = string
-  default     = "aws-ps-pipeline-connection"
-}
-
-variable "code_connection_provider" {
-  description = "Code connection provider"
-  type        = string
-  default     = "GitHub"
+  default     = "github"
   validation {
-    condition     = contains(["GitHub"], var.code_connection_provider)
-    error_message = "Valid values for code_connection_provider are: GitHub"
+    condition     = contains(["codecommit", "github", "githubenterprise"], var.vcs_provider)
+    error_message = "Valid values for vcs_provider are: codecommit, github githubenterprise"
+  }
+}
+
+variable "github_enterprise_url" {
+  description = "GitHub enterprise URL, if GitHub Enterprise is being used. (inform only if vcs_provider = githubenterprise)"
+  type        = string
+  default     = "null"
+}
+
+variable "enable_vpc_config" {
+  description = "Enable VPC configuration for CodeBuild project and CodeConnections Host."
+  type        = bool
+  default     = false
+}
+
+variable "vpc_config" {
+  description = "VPC configuration to set to CodeBuild project and CodeConnections Host. (enable_vpc_config must be true)"
+  type = object({
+    vpc_id          = string
+    subnets         = list(string)
+    security_groups = list(string)
+  })
+  default = {
+    vpc_id          = ""
+    subnets         = []
+    security_groups = []
   }
 }
 
