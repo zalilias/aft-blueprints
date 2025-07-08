@@ -5,13 +5,13 @@ module "network" {
   source = "./modules/aft-account-request"
 
   control_tower_parameters = {
-    AccountEmail = "my-org+network@customer.com"
+    AccountEmail = "zalilias+network@amazon.com"
     AccountName  = "Network"
     # Syntax for top-level OU
     ManagedOrganizationalUnit = "Infrastructure"
     # Syntax for nested OU
     # ManagedOrganizationalUnit = "Sandbox (ou-abcd-12345678)"
-    SSOUserEmail     = "my-org@customer.com"
+    SSOUserEmail     = "zalilias@amazon.com"
     SSOUserFirstName = "AWS Control Tower"
     SSOUserLastName  = "Admin"
   }
